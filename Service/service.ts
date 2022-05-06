@@ -20,7 +20,7 @@ export async function updateStorage<DataType extends Center | Dog | Event | User
   try {
     await fs.promises.writeFile(storeFile, JSON.stringify(data));
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 }
 
@@ -29,6 +29,6 @@ export async function readStorage<DataType extends Center | Dog | Event | User> 
     const data = await fs.promises.readFile(file, 'utf-8');
     return JSON.parse(data);
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 }

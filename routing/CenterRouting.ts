@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import Center from '../Models/Center'
-import Dog from '../Models/Dog'
-import Event from '../Models/Event'
+import Center from '../models/Center'
+import Dog from '../models/Dog'
+import Event from '../models/Event'
 import { updateStorage, readStorage } from '../Service/service'
 const express = require('express');
 const uniqid = require('uniqid');
@@ -16,7 +16,7 @@ const CenterPath = 'Data/storeCenters.json';
 router.get('/:id', async (req: Request, res: Response) =>{
     const centers = await readStorage(CenterPath);
     const id = req.params.id;
-    const center = centers.find((center) => center[id] === id); 
+    const center = centers.find((center) => center.Id === id); 
     if(center == undefined)
     {
         res.status(404).send("This center doesn't exist.");
