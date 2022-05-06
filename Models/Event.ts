@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 class Event{
-    public Id: number;
-    public DogId: number;
-    public UserId: number;
+    public Id: string;
+    public DogId: string;
+    public UserId: string;
     public Date: Date;
     public IsAccepted: boolean;
     public Message?: string;

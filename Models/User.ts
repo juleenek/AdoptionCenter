@@ -1,5 +1,5 @@
 class User{
-  public Id: number;
+  public Id: string;
   public Login: string;
   public Name: string;
   public IsAdmin: boolean = false;

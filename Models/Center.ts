@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 
 class Center{
-    public Id: number;
+    public Id: string;
     public CenterName: string;
     public City: string;
     public Address: string;
