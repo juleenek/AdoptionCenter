@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
-import Dog from '../Models/Dog'
-import Event from '../Models/Event'
-import { centers, dogs, events } from '../Service/service'
+import Dog from '../models/Dog'
+import Event from '../models/Event'
+
 const express = require('express');
 const router = express.Router();
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
 //GET CENTER BY ID
 router.get('/:id', (req: Request, res: Response) =>{
