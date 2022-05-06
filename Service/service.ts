@@ -24,7 +24,7 @@ export async function updateStorage(
   }
 }
 
-export async function readStorage(file: string): Promise<Center[] | Dog[] | Event[] | User[]> {
+export async function readStorage<Center, Dog, Event, User>(file: string): Promise<Center[] | Dog[] | Event[] | User[]> {
   try {
     const data = await fs.promises.readFile(file, 'utf-8');
     return JSON.parse(data);
