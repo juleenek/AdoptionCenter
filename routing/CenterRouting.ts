@@ -3,6 +3,7 @@ import Center from '../models/Center'
 import Dog from '../models/Dog'
 import Event from '../models/Event'
 import { updateStorage, readStorage } from '../Service/service'
+import { checkRequired } from '../Service/checks';
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();
@@ -31,6 +32,10 @@ router.get('/:id', async (req: Request, res: Response) =>{
 router.post('', (req: Request, res: Response) =>{
     const center: Center = req.body;
     center.Id = uniqid();
-
+    checkRequired(center.CenterName, res, 'Please enter a center name.', 400);
+    checkRequired(center.City, res, 'Please enter a center city.', 400);
+    checkRequired(center.Address, res, 'Please enter a center address.', 400);
+    checkRequired(center.Phone, res, 'Please enter a center phone number.', 400);
+    checkRequired(center.Password, res, 'Please enter a center password.', 400);
 }) 
 module.exports = router;
