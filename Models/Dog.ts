@@ -1,10 +1,10 @@
 class Dog{
-    public Id: number;
+    public Id: string;
     public Name: string;
     public Breed: string;
     public Age: number;
     public Gender: string;
-    public IdCenter: number;
+    public IdCenter: string;
     //public Events?: Event[]
     constructor(dog: Dog){
         this.Name = dog.Name;
