@@ -13,9 +13,9 @@ import Event from '../models/Event';
 
 export const secret = 'LubiePieski123';
 
-export async function updateStorage(
+export async function updateStorage<DataType extends Center | Dog | Event | User> (
   storeFile: string,
-  data: Center | Dog | Event | User
+  data: DataType[]
 ): Promise<void> {
   try {
     await fs.promises.writeFile(storeFile, JSON.stringify(data));
@@ -24,7 +24,7 @@ export async function updateStorage(
   }
 }
 
-export async function readStorage<Center, Dog, Event, User>(file: string): Promise<Center[] | Dog[] | Event[] | User[]> {
+export async function readStorage<DataType extends Center | Dog | Event | User> (file: string): Promise<DataType[]> {
   try {
     const data = await fs.promises.readFile(file, 'utf-8');
     return JSON.parse(data);
