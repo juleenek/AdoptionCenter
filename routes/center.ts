@@ -3,8 +3,6 @@ import Center from '../models/Center'
 import Dog from '../models/Dog'
 import Event from '../models/Event'
 import { updateStorage, readStorage } from '../service/service'
-import { checkRequired } from '../Service/checks';
-import { registerCenterValidation } from '../validation'
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();

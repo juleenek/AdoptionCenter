@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 import Center from '../models/Center';
 import User from '../models/User';
-const uniqid = require('uniqid');
 import { readStorage, updateStorage } from '../service/service';
-import { registerValidation, loginUserValidation, loginCenterValidation } from '../validation';
+import {
+  registerValidation,
+  loginUserValidation,
+  loginCenterValidation,
+} from '../validation';
 
 // Zrobiłam osobne 'auth', poniewaz nie tylko user będzie się logować, a schronisko równiez
 // Haszujemy hasło czy nie ma po co? (npm bcrypt)
@@ -11,6 +14,11 @@ import { registerValidation, loginUserValidation, loginCenterValidation } from '
 const express = require('express');
 const router = express.Router();
 const app = express();
+require('dotenv').config();
+
+const uniqid = require('uniqid');
+const jwt = require('jsonwebtoken');
+
 app.use(express.json());
 
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
@@ -58,14 +66,19 @@ router.post('/login', async (req: Request, res: Response) => {
     const user: User = req.body;
     const { error } = loginUserValidation(user);
     if (error) return res.status(400).send('Login or password is wrong.');
-    res.status(200).send(user);
-  } else if( centers.some(
-    (center) =>
-    center.centerName === req.body.centerName && center.password === req.body.password
-  )){
+    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
+    res.status(200).send(token);
+  } else if (
+    centers.some(
+      (center) =>
+        center.centerName === req.body.centerName &&
+        center.password === req.body.password
+    )
+  ) {
     const center: Center = req.body;
     const { error } = loginCenterValidation(center);
     if (error) return res.status(400).send('Login or password is wrong.');
+
     res.status(200).send(center);
   } else {
     return res.status(400).send({

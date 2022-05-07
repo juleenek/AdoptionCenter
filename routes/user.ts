@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { readStorage } from '../service/service';
+import {authenticateToken} from '../verifyToken';
 
 const express = require('express');
 const router = express.Router();
