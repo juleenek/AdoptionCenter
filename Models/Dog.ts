@@ -1,17 +1,17 @@
 class Dog{
-    public Id: string;
-    public Name: string;
-    public Breed: string;
-    public Age: number;
-    public Gender: string;
-    public IdCenter: string;
-    public Events?: Event[]
+    public id: string;
+    public name: string;
+    public breed: string;
+    public age: number;
+    public gender: string;
+    public idCenter: string;
+    public events?: Event[]
     constructor(dog: Dog){
-        this.Name = dog.Name;
-        this.Breed = dog.Breed;
-        this.Age = dog.Age;
-        this.Gender = dog.Gender;
-        this.IdCenter = dog.IdCenter;
+        this.name = dog.name;
+        this.breed = dog.breed;
+        this.age = dog.age;
+        this.gender = dog.gender;
+        this.idCenter = dog.idCenter;
     }
 }
 export default Dog;

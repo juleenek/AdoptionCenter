@@ -1,16 +1,16 @@
 
 class Event{
-    public Id: string;
-    public DogId: string;
-    public UserId: string;
-    public Date: Date;
-    public IsAccepted: boolean;
-    public Message?: string;
+    public id: string;
+    public dogId: string;
+    public userId: string;
+    public date: Date;
+    public isAccepted: boolean;
+    public message?: string;
     
     constructor(event?: Event){
-        this.Date = event.Date;
-        this.IsAccepted = event.IsAccepted;
-        this.Message = event.Message;
+        this.date = event.date;
+        this.isAccepted = event.isAccepted;
+        this.message = event.message;
     }
 }
 export default Event;

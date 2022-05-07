@@ -12,7 +12,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   // ToDo: jeśli zalogowany użytkownik jest adminem
   const users = await readStorage(storeUsersFile);
   const id = req.params.id;
-  const user = users.find((user) => user.Id === id);
+  const user = users.find((user) => user.id === id);
   if (user == undefined) {
     res.status(404).send("This center doesn't exist.");
   } else {
