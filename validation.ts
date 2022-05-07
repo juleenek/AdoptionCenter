@@ -16,19 +16,20 @@ export const registerValidation = (data: User) => {
   return schema.validate(data);
 };
 
-export const loginValidation = (data: User | Center) => {
-  if (typeof data === typeof User) {
-    const schema = Joi.object().keys({
-      login: Joi.string().min(6).required(),
-      password: Joi.string().min(6).required(),
-    });
-    return schema.validate(data);
-  }
-  if (typeof data === typeof Center) {
-    const schema = Joi.object().keys({
-      centerName: Joi.string().min(6).required(),
-      password: Joi.string().min(6).required(),
-    });
-    return schema.validate(data);
-  }
+// Login User Validation
+export const loginUserValidation = (data: User) => {
+  const schema = Joi.object().keys({
+    login: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required(),
+  });
+  return schema.validate(data);
+};
+
+// Login Center Validation
+export const loginCenterValidation = (data: Center) => {
+  const schema = Joi.object().keys({
+    centerName: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required(),
+  });
+  return schema.validate(data);
 };

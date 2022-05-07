@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+import Center from '../models/Center';
 import User from '../models/User';
 const uniqid = require('uniqid');
 import { readStorage, updateStorage } from '../service/service';
-import { registerValidation, loginValidation } from '../validation';
+import { registerValidation, loginUserValidation, loginCenterValidation } from '../validation';
 
 // Zrobiłam osobne 'auth', poniewaz nie tylko user będzie się logować, a schronisko równiez
 // Haszujemy hasło czy nie ma po co? (npm bcrypt)
@@ -21,7 +22,7 @@ router.post('/register', async (req: Request, res: Response) => {
   const user: User = req.body;
   const users = await readStorage<User>(storeUsersFile);
 
-  const { error } = registerValidation(req.body);
+  const { error } = registerValidation(user);
   if (error) return res.status(400).send('Valid register.');
 
   // Check if the user exist
@@ -35,7 +36,7 @@ router.post('/register', async (req: Request, res: Response) => {
   try {
     user.id = uniqid();
     await updateStorage<User>(storeUsersFile, [...users, user]);
-    res.send(user);
+    res.status(200).send(user);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -44,23 +45,32 @@ router.post('/register', async (req: Request, res: Response) => {
 /////// Users and the centers can log in
 
 router.post('/login', async (req: Request, res: Response) => {
-  const isCenter: boolean = req.body.isCenter;
+  const users = await readStorage<User>(storeUsersFile);
+  const centers = await readStorage<Center>(storeCentersFile);
 
-  if (!isCenter) {
+  // Check if the user exist
+  if (
+    users.some(
+      (user) =>
+        user.login === req.body.login && user.password === req.body.password
+    )
+  ) {
     const user: User = req.body;
-    const users = await readStorage<User>(storeUsersFile);
-
-    const { error } = registerValidation(req.body);
-    if (error) return res.status(400).send('Valid register.');
-
-    // Check if the user exist
-    if (users.some((user) => user.login === req.body.login && user.password === req.body.password)) {
-
-    } else {
-      return res.status(400).send({
-        error: 'Login or password is wrong.',
-      });
-    }
+    const { error } = loginUserValidation(user);
+    if (error) return res.status(400).send('Login or password is wrong.');
+    res.status(200).send(user);
+  } else if( centers.some(
+    (center) =>
+    center.centerName === req.body.centerName && center.password === req.body.password
+  )){
+    const center: Center = req.body;
+    const { error } = loginCenterValidation(center);
+    if (error) return res.status(400).send('Login or password is wrong.');
+    res.status(200).send(center);
+  } else {
+    return res.status(400).send({
+      error: 'Login or password is wrong.',
+    });
   }
 });
 
