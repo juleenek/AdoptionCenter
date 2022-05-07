@@ -1,5 +1,7 @@
 import {Request, Response} from "express";
 import Dog from '../models/Dog';
+import Event from '../models/Event';
+
 
 class Center{
     public id: string;
@@ -10,7 +12,9 @@ class Center{
     public dogs?: Dog[]
     public events?: Event[]
     public password: string;
-    constructor(center?: Center){
+
+    constructor(center: Center){
+        this.id = center.id;
         this.centerName = center.centerName;
         this.city = center.city;
         this.address = center.address;
