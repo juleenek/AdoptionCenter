@@ -3,6 +3,7 @@ import User from '../models/User';
 const uniqid = require('uniqid');
 import { checkRequired } from '../Service/checks';
 import { readStorage, updateStorage } from '../service/service';
+import { registerValidation } from '../validation';
 
 // Zrobiłam osobne 'auth', poniewaz nie tylko user będzie się logować, a schronisko równiez
 
@@ -13,19 +14,15 @@ app.use(express.json());
 
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 const storeCentersFile = '../AdoptionCenter/Data/storeCenters.json';
-// this.Login = user.Login;
-// this.Name = user.Name;
-// this.IsAdmin = user.IsAdmin;
-// this.Surname = user.Surname;
 
 // Rejestrują się tylko i wyłącznie uzytkownicy
 router.post('/register', async (req: Request, res: Response) => {
   const user: User = req.body;
   const users = await readStorage<User>(storeUsersFile);
 
-  checkRequired(user.login, res, 'Please enter a center name.', 400);
-  checkRequired(user.name, res, 'Please enter a center city.', 400);
-  checkRequired(user.surname, res, 'Please enter a center address.', 400);
+  const {error} = registerValidation(req.body);
+  if(error) return res.status(400).send("Valid register.");
+
   user.id = uniqid();
 
   try {
