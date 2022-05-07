@@ -23,9 +23,16 @@ router.post('/register', async (req: Request, res: Response) => {
   const {error} = registerValidation(req.body);
   if(error) return res.status(400).send("Valid register.");
 
-  user.id = uniqid();
+  // Check if the user exist
+  if(users.some(user => user.login === req.body.login)){
+    return res.status(400).send({
+      error: 'User already exist',
+    });
+  }
 
+  // Create a new user
   try {
+    user.id = uniqid();
     await updateStorage<User>(storeUsersFile, [...users, user]);
     res.send(user);
   } catch (err) {
