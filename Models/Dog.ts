@@ -5,7 +5,7 @@ class Dog{
     public Age: number;
     public Gender: string;
     public IdCenter: string;
-    //public Events?: Event[]
+    public Events?: Event[]
     constructor(dog: Dog){
         this.Name = dog.Name;
         this.Breed = dog.Breed;

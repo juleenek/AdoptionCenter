@@ -1,9 +1,14 @@
 import {Request, Response} from 'express'
 const express = require('express')  
 const app = express()
-const centers = require('../routing/CenterRouting');
 app.use(express.json())
 
-app.use('/center', centers);
+const center = require('../routes/center');
+const user = require('../routes/user');
+const auth = require('../routes/auth');
+
+app.use('/center', center);
+app.use('/user', user);
+app.use('/auth', auth);
 
 app.listen(3000)

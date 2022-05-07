@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+import Dog from '../models/Dog';
 
 class Center{
     public Id: string;
@@ -6,8 +7,8 @@ class Center{
     public City: string;
     public Address: string;
     public Phone: string;
-    //public Dogs?: Dog[]
-    //public Events?: Event[]
+    public Dogs?: Dog[]
+    public Events?: Event[]
     public Password: string;
     constructor(center?: Center){
         this.CenterName = center.CenterName;

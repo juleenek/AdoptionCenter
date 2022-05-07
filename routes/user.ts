@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
 import { readStorage } from '../service/service';
 
 const express = require('express');
@@ -8,9 +8,17 @@ app.use(express.json());
 
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 
-router.get('/:id', async (req: Request, res: Response) =>{
+router.get('/:id', async (req: Request, res: Response) => {
   // ToDo: jeśli zalogowany użytkownik jest adminem
   const users = await readStorage(storeUsersFile);
+  const id = req.params.id;
+  const user = users.find((user) => user.Id === id);
+  if (user == undefined) {
+    res.status(404).send("This center doesn't exist.");
+  } else {
+    res.status(200).send(user);
+  }
 });
 
 module.exports = router;
+ 

@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+
 class Event{
     public Id: string;
     public DogId: string;

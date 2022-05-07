@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Center from '../models/Center'
 import Dog from '../models/Dog'
 import Event from '../models/Event'
-import { updateStorage, readStorage } from '../Service/service'
+import { updateStorage, readStorage } from '../service/service'
 import { checkRequired } from '../Service/checks';
 const express = require('express');
 const uniqid = require('uniqid');
