@@ -3,6 +3,7 @@ import Center from '../models/Center'
 import Dog from '../models/Dog'
 import Event from '../models/Event'
 import { updateStorage, readStorage } from '../service/service'
+import { registerCenterValidation} from '../validation';
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();
@@ -51,8 +52,10 @@ router.post('', async (req: Request, res: Response) =>{
 //PUT UPDATE CENTER DATA(ADMIN)
 router.put('/:id', async(req: Request, res: Response) =>{
     const centers: any = await readStorage(CenterPath);
-    const newCenter: Center = req.body;
+    const newCenters = centers.filter((n: any) => n.id !== req.params.id);
     const oldCenter = centers.find((center: any) => center.id === req.params.id)
+    const newCenter: Center = req.body;
+    
 
     const name = (newCenter.centerName = newCenter.centerName.toLowerCase());
     const findSameName = centers.find(((x: any) => x.centerName == name))
@@ -65,14 +68,31 @@ router.put('/:id', async(req: Request, res: Response) =>{
     return res.status(404).send("This center doesn't exist.");
     }
 
-    if(findSameName && req.params.id != oldCenter.id){
+    if(findSameName && req.params.id == oldCenter.id){
         console.log(centerIndex);
-        res.status(404).send("This center doesn't exist.");
+        res.status(404).send("A center with this name already exists, try again.");
     }
     else{
         console.log(centerIndex);
-        await updateStorage(CenterPath, [...centers, centers[centerIndex] = newCenter]);
+        newCenter.id = oldCenter.id;
+        await updateStorage(CenterPath, [...newCenters, centers[centerIndex] = newCenter]);
         return res.status(201).send(newCenter);
     }
+})
+
+//DELETE DELETE A CENTER(ADMIN)
+router.delete('/:id', async(req: Request, res: Response) =>{
+    const centers: any = await readStorage(CenterPath);
+    const newCenters = centers.filter((n: any) => n.id !== req.params.id);
+    const center = centers.find((center: any) => center.id === req.params.id)
+    
+    const centerIndex: number = centers.findIndex((n: any) => n.id === req.params.id)
+
+    if(center == undefined){
+    return res.status(404).send("This center doesn't exist.");
+    }
+
+    await updateStorage(CenterPath, [...newCenters]);
+    return res.status(400).send("Successfully deleted the center.");
 })
 module.exports = router;
