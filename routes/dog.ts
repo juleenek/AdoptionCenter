@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Dog from '../models/Dog'
-import { updateStorage, readStorage } from '../service/service'
+import { updateStorage, readStorage } from '../services/service'
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();

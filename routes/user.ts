@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { readStorage } from '../service/service';
+import { readStorage } from '../services/service';
 import {authentication} from '../middlewares/authentication';
 
 const express = require('express');

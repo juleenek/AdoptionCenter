@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Center from '../models/Center'
-import { readStorage } from '../service/service'
+import { readStorage } from '../services/service'
 const express = require('express');
 const router = express.Router();
 const app = express()

@@ -2,8 +2,8 @@ import { Request, Response } from 'express'
 import Center from '../models/Center'
 import Dog from '../models/Dog'
 import Event from '../models/Event'
-import { updateStorage, readStorage } from '../service/service'
-import { registerCenterValidation} from '../validation';
+import { updateStorage, readStorage } from '../services/service'
+import { registerCenterValidation} from '../helpers/validation';
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();

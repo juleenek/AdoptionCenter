@@ -1,5 +1,5 @@
-import User from './models/User';
-import Center from './models/Center';
+import User from '../models/User';
+import Center from '../models/Center';
 
 const Joi = require('@hapi/joi');
 
