@@ -1,6 +1,6 @@
 import User from '../models/User';
 import Center from '../models/Center';
-
+import Dog from '../models/Dog';
 const Joi = require('@hapi/joi');
 
 // Register Validation
@@ -33,6 +33,17 @@ export const registerCenterValidation = (data: Center) => {
     address: Joi.string().min(6).required(),
     phone: Joi.string().length(9).required(),
     password: Joi.string().min(6).required()
+  })
+  return schema.validate(data);
+}
+
+// Register Center Validation
+export const registerDogValidation = (data: Dog) => {
+  const schema = Joi.object().keys({
+    name: Joi.string().required(),
+    breed: Joi.string().required(),
+    age: Joi.number(),
+    gender: Joi.string().min(4).max(6).required()
   })
   return schema.validate(data);
 }

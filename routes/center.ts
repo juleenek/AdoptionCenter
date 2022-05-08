@@ -4,6 +4,7 @@ import Dog from '../models/Dog'
 import Event from '../models/Event'
 import { updateStorage, readStorage } from '../services/service'
 import { registerCenterValidation} from '../helpers/validation';
+import { authentication } from '../middlewares/authentication'
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();
@@ -35,7 +36,7 @@ router.post('', async (req: Request, res: Response) =>{
 
     const name = (center.centerName = center.centerName.toLowerCase());
     const findSameName = centers.find(((x: any) => x.centerName == name))
-
+    
     const { error } = registerCenterValidation(center);
     if (error) return res.status(400).send('Invalid data, try again.');
 
@@ -75,7 +76,7 @@ router.put('/:id', async(req: Request, res: Response) =>{
     else{
         console.log(centerIndex);
         newCenter.id = oldCenter.id;
-        await updateStorage(CenterPath, [...newCenters, centers[centerIndex] = newCenter]);
+        await updateStorage(CenterPath, [...newCenters, newCenter]);
         return res.status(201).send(newCenter);
     }
 })
@@ -86,12 +87,9 @@ router.delete('/:id', async(req: Request, res: Response) =>{
     const newCenters = centers.filter((n: any) => n.id !== req.params.id);
     const center = centers.find((center: any) => center.id === req.params.id)
     
-    const centerIndex: number = centers.findIndex((n: any) => n.id === req.params.id)
-
     if(center == undefined){
     return res.status(404).send("This center doesn't exist.");
     }
-
     await updateStorage(CenterPath, [...newCenters]);
     return res.status(400).send("Successfully deleted the center.");
 })
