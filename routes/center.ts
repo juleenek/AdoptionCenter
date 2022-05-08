@@ -6,6 +6,7 @@ import { updateStorage, readStorage } from '../services/service'
 import { registerCenterValidation} from '../helpers/validation';
 import {authentication} from '../middlewares/authentication';
 import {requiresAdmin} from '../middlewares/requiresAdmin';
+import { filterCenter } from '../helpers/filter'
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();
@@ -14,6 +15,12 @@ app.use(express.json())
 
 //PATHS
 const CenterPath = 'Data/storeCenters.json';
+
+router.get('', (req: Request, res: Response) => {
+    const filters: any = req.query;
+    filterCenter(filters, res);
+})
+
 
 //GET SHOW CENTER BY ID
 router.get('/:id', async (req: Request, res: Response) =>{

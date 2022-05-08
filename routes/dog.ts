@@ -7,6 +7,7 @@ import { authentication } from '../middlewares/authentication';
 import { requiresAdmin } from '../middlewares/requiresAdmin';
 import { requiresCenter } from '../middlewares/requiresCenter';
 import { JwtPayload } from 'jsonwebtoken';
+import { filterDog } from '../helpers/filter';
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const uniqid = require('uniqid');
@@ -16,6 +17,11 @@ app.use(express.json())
 
 //PATHS
 const DogPath = 'Data/storeDogs.json';
+
+router.get('', (req: Request, res: Response) => {
+    const filters: any = req.query;
+    filterDog(filters, res);
+})
 
 //GET SHOW DOG BY ID
 router.get('/:id', async (req: Request, res: Response) =>{
