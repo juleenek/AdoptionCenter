@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { readStorage } from '../service/service';
-import {authenticateToken} from '../verifyToken';
+import {authentication} from '../middlewares/authentication';
 
 const express = require('express');
 const router = express.Router();
@@ -9,7 +9,7 @@ app.use(express.json());
 
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', authentication, async (req: Request, res: Response) => {
   // ToDo: jeśli zalogowany użytkownik jest adminem
   const users = await readStorage(storeUsersFile);
   const id = req.params.id;
