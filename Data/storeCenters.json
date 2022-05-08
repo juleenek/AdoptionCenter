@@ -3,6 +3,31 @@
         "centerName": "centrumhauhau",
         "password": "abcsjhd213",
         "id": "skt",
-        "dogs": []
+        "dogs": [
+            {
+                "name": "uwuPiesek",
+                "breed": "york",
+                "age": 5,
+                "gender": "male",
+                "id": "py34cl2xvlshb",
+                "idCenter": "skt"
+            },
+            {
+                "name": "uwuPiesek",
+                "breed": "york",
+                "age": 5,
+                "gender": "male",
+                "id": "py34cl2xvls423",
+                "idCenter": "skt"
+            },
+            {
+                "name": "uwuowo",
+                "breed": "york",
+                "age": 5,
+                "gender": "male",
+                "idCenter": "skt",
+                "id": "pyag8l2xwlahf"
+            }
+        ]
     }
 ]

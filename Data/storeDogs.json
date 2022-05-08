@@ -6,5 +6,21 @@
         "age": 3,
         "gender": "male",
         "idCenter": "idjakiegośschroniska"
+    },
+    {
+        "name": "uwuPiesek",
+        "breed": "york",
+        "age": 5,
+        "gender": "male",
+        "idCenter": "skt",
+        "id": "py34cl2xvlshb"
+    },
+    {
+        "name": "uwuowo",
+        "breed": "york",
+        "age": 5,
+        "gender": "male",
+        "idCenter": "skt",
+        "id": "pyag8l2xwlahf"
     }
 ]

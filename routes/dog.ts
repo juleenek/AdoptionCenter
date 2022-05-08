@@ -4,10 +4,10 @@ import Center from '../models/Center';
 import { updateStorage, readStorage } from '../services/service'
 import { registerDogValidation } from '../helpers/validation';
 import { authentication } from '../middlewares/authentication';
-import { requiresAdmin } from '../middlewares/requiresAdmin';
 import { requiresCenter } from '../middlewares/requiresCenter';
 import { JwtPayload } from 'jsonwebtoken';
 import { filterDog } from '../helpers/filter';
+
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const uniqid = require('uniqid');
@@ -19,6 +19,7 @@ app.use(express.json())
 const DogPath = 'Data/storeDogs.json';
 const CenterPath = 'Data/storeCenters.json';
 
+//GET SHOW DOGS BY FILTERS
 router.get('', (req: Request, res: Response) => {
     const filters: any = req.query;
     filterDog(filters, res);
@@ -49,7 +50,7 @@ router.post('',authentication , requiresCenter, async (req: Request, res: Respon
     const centers: any = await readStorage(CenterPath);
 
     const dog: Dog = req.body;
-    const newCenters = centers.filter((n: any) => n.id !== center.id);
+    const newCenters = centers.filter((existingCenters: any) => existingCenters.id !== center.id);
 
     const { error } = registerDogValidation(dog);
     if (error) return res.status(400).send('Invalid data, try again.');
@@ -71,10 +72,12 @@ router.put('/:id',authentication , requiresCenter, async(req: Request, res: Resp
     const authorizationHeader = req.headers.authorization as string;
     const token = authorizationHeader.split(' ')[1];
     const center: Center = jwt.decode(token) as JwtPayload as Center;
+
     const dogs: any = await readStorage(DogPath);
+    const centers: any = await readStorage(CenterPath);
 
     const newDogs = dogs.filter((n: any) => n.id !== req.params.id);
-    const oldDog = dogs.find((dog: any) => dog.id === req.params.id)
+    const oldDog = dogs.find((dog: any) => dog.id === req.params.id);
     const newDog: Dog = req.body;
 
     const { error } = registerDogValidation(newDog);
@@ -83,14 +86,22 @@ router.put('/:id',authentication , requiresCenter, async(req: Request, res: Resp
     if(oldDog == undefined){
     return res.status(404).send("This dog doesn't exist.");
     }
-    if((center.id != oldDog.idCenter))
+    if(center.id != oldDog.idCenter)
     {
         return res.status(202).send("You can't edit this dog.")
     }
 
+    const allDogsInsideCenter = centers.reduce((prev: any, next: any) => prev.concat(next.dogs), []);
+    const dogInsideCenter = allDogsInsideCenter.indexOf(allDogsInsideCenter.find((obj: any) => obj.id === oldDog.id));
+    const newCenters = centers.filter((n: any) => n.id !== center.id);
+    const newCenter = centers.find((n: any) => n.id === center.id);
+
     newDog.idCenter = center.id;
     newDog.id = oldDog.id;
+    newCenter.dogs[dogInsideCenter] = newDog;
+
     await updateStorage(DogPath, [...newDogs, newDog]);
+    await updateStorage(CenterPath, [...newCenters, newCenter]);
     return res.status(201).send(newDog); 
 })
 
