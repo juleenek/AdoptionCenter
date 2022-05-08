@@ -25,6 +25,18 @@ export const loginUserValidation = (data: User) => {
   return schema.validate(data);
 };
 
+// Register Center Validation
+export const registerCenterValidation = (data: Center) => {
+  const schema = Joi.object().keys({
+    centerName: Joi.string().min(6).required(),
+    city: Joi.string().min(3).required(),
+    address: Joi.string().min(6).required(),
+    phone: Joi.string().length(9).required(),
+    password: Joi.string().min(6).required()
+  })
+  return schema.validate(data);
+}
+
 // Login Center Validation
 export const loginCenterValidation = (data: Center) => {
   const schema = Joi.object().keys({
