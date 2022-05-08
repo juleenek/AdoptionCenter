@@ -4,7 +4,7 @@ class User{
   public id: string;
   public login: string;
   public name: string;
-  public isAdmin: boolean = false;
+  public role: string;
   public events?: Event[];
   public surname: string;
   public password: string;
@@ -13,7 +13,7 @@ class User{
     this.id = user.id;
     this.login = user.login;
     this.name = user.name;
-    this.isAdmin = user.isAdmin;
+    this.role = user.role;
     this.events = user.events
     this.surname = user.surname;
     this.password = user.password;
