@@ -4,7 +4,8 @@ import Dog from '../models/Dog'
 import Event from '../models/Event'
 import { updateStorage, readStorage } from '../services/service'
 import { registerCenterValidation} from '../helpers/validation';
-import { authentication } from '../middlewares/authentication'
+import {authentication} from '../middlewares/authentication';
+import {requiresAdmin} from '../middlewares/requiresAdmin';
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();
@@ -30,7 +31,7 @@ router.get('/:id', async (req: Request, res: Response) =>{
 })
 
 //POST ADD NEW CENTER(ADMIN)
-router.post('', async (req: Request, res: Response) =>{
+router.post('', authentication, requiresAdmin, async (req: Request, res: Response) =>{
     const centers: any = await readStorage(CenterPath);
     const center: Center = req.body;
 
@@ -51,7 +52,7 @@ router.post('', async (req: Request, res: Response) =>{
 })
 
 //PUT UPDATE CENTER DATA(ADMIN)
-router.put('/:id', async(req: Request, res: Response) =>{
+router.put('/:id', authentication, requiresAdmin, async(req: Request, res: Response) =>{
     const centers: any = await readStorage(CenterPath);
     const newCenters = centers.filter((n: any) => n.id !== req.params.id);
     const oldCenter = centers.find((center: any) => center.id === req.params.id)
@@ -82,7 +83,7 @@ router.put('/:id', async(req: Request, res: Response) =>{
 })
 
 //DELETE DELETE A CENTER(ADMIN)
-router.delete('/:id', async(req: Request, res: Response) =>{
+router.delete('/:id', authentication, requiresAdmin, async(req: Request, res: Response) =>{
     const centers: any = await readStorage(CenterPath);
     const newCenters = centers.filter((n: any) => n.id !== req.params.id);
     const center = centers.find((center: any) => center.id === req.params.id)
