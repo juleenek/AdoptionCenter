@@ -63,10 +63,17 @@ router.post('/login', async (req: Request, res: Response) => {
         user.login === req.body.login && user.password === req.body.password
     )
   ) {
-    const user: User = req.body;
-    const { error } = loginUserValidation(user);
+    const { error } = loginUserValidation(req.body);
     if (error) return res.status(400).send('Login or password is wrong.');
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
+    const user: User = users.find(
+      (user) =>
+        user.login === req.body.login && user.password === req.body.password
+    ) as User;
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.TOKEN_SECRET
+    );
+    console.log(user.role);
     res.status(200).send(token);
   } else if (
     centers.some(
