@@ -1,1 +1,8 @@
-[{ "centerName": "centrumhauhau", "password": "abcsjhd213", "id": "skt" }]
+[
+    {
+        "centerName": "centrumhauhau",
+        "password": "abcsjhd213",
+        "id": "skt",
+        "dogs": []
+    }
+]

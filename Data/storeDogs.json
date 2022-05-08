@@ -1,1 +1,10 @@
-[{"id":"1","name":"fajneimiepieska","breed":"york","age":3,"gender":"male","idCenter":"idjakiegośschroniska"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","id":"py3lgl2xcu67r","idCenter":"py3lgl2xcu67s"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","id":"pyb18l2xcv85a","idCenter":"pyb18l2xcv85b"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","id":"py7bol2xcvq22","idCenter":"py7bol2xcvq23"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","id":"pyatwl2xd3wk6","idCenter":"skt"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","id":"py6jsl2xdl7jy","idCenter":"skt"},{"name":"uwuPiesek","breed":"york","age":5,"gender":"male","idCenter":"idCentrum","id":"py2dsl2xdz4m4"}]
+[
+    {
+        "id": "1",
+        "name": "fajneimiepieska",
+        "breed": "york",
+        "age": 3,
+        "gender": "male",
+        "idCenter": "idjakiegośschroniska"
+    }
+]

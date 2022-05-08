@@ -17,6 +17,7 @@ app.use(express.json())
 
 //PATHS
 const DogPath = 'Data/storeDogs.json';
+const CenterPath = 'Data/storeCenters.json';
 
 router.get('', (req: Request, res: Response) => {
     const filters: any = req.query;
@@ -43,15 +44,25 @@ router.post('',authentication , requiresCenter, async (req: Request, res: Respon
     const authorizationHeader = req.headers.authorization as string;
     const token = authorizationHeader.split(' ')[1];
     const center: Center = jwt.decode(token) as JwtPayload as Center;
+
     const dogs = await readStorage(DogPath);
+    const centers: any = await readStorage(CenterPath);
+
     const dog: Dog = req.body;
+    const newCenters = centers.filter((n: any) => n.id !== center.id);
 
     const { error } = registerDogValidation(dog);
     if (error) return res.status(400).send('Invalid data, try again.');
 
     dog.id = uniqid();
     dog.idCenter = center.id;
+
+    const newCenter: Center = centers.find((x: any) => x.id == dog.idCenter);
+    newCenter.dogs?.push(dog);
+
     await updateStorage(DogPath, [...dogs, dog]);
+    await updateStorage(CenterPath, [...newCenters, newCenter]);
+
     return res.status(201).send(dog);
 })
 
@@ -61,13 +72,14 @@ router.put('/:id',authentication , requiresCenter, async(req: Request, res: Resp
     const token = authorizationHeader.split(' ')[1];
     const center: Center = jwt.decode(token) as JwtPayload as Center;
     const dogs: any = await readStorage(DogPath);
+
     const newDogs = dogs.filter((n: any) => n.id !== req.params.id);
     const oldDog = dogs.find((dog: any) => dog.id === req.params.id)
     const newDog: Dog = req.body;
-    
-    const { error } = registerDogValidation(newDog);
 
+    const { error } = registerDogValidation(newDog);
     if (error) return res.status(400).send('Invalid data, try again.');
+
     if(oldDog == undefined){
     return res.status(404).send("This dog doesn't exist.");
     }
@@ -75,11 +87,11 @@ router.put('/:id',authentication , requiresCenter, async(req: Request, res: Resp
     {
         return res.status(202).send("You can't edit this dog.")
     }
+
     newDog.idCenter = center.id;
     newDog.id = oldDog.id;
     await updateStorage(DogPath, [...newDogs, newDog]);
-    return res.status(201).send(newDog);
-    
+    return res.status(201).send(newDog); 
 })
 
 //DELETE DELETE A DOG(CENTER)
