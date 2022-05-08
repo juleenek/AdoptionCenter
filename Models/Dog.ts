@@ -2,7 +2,7 @@ class Dog{
     public id: string;
     public name: string;
     public breed: string;
-    public age: number;
+    public age?: number;
     public gender: string;
     public idCenter: string;
     public events?: Event[]

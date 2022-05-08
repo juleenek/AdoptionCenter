@@ -1,10 +1,1 @@
-[
-    {
-      "id": "1",
-      "name": "fajneimiepieska",
-      "breed": "york",
-      "age": 3,
-      "gender": "male",
-      "idCenter": "idjakiegośschroniska"
-    }
-]
+[{"id":"1","name":"fajneimiepieska","breed":"york","age":3,"gender":"male","idCenter":"idjakiegośschroniska"}]
