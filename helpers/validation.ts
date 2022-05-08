@@ -10,7 +10,7 @@ export const registerValidation = (data: User) => {
   const schema = Joi.object().keys({
     login: Joi.string().min(6).required(),
     name: Joi.string().min(6).required(),
-    role: Joi.string().default('user'),
+    role: Joi.string().empty('user'),
     surname: Joi.string().min(6).required(),
     password: Joi.string().min(6).required(),
   });

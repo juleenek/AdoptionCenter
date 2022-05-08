@@ -43,6 +43,7 @@ router.post('/register', async (req: Request, res: Response) => {
   // Create a new user
   try {
     user.id = uniqid();
+    if(req.body.role === undefined) user.role = 'user';
     await updateStorage<User>(storeUsersFile, [...users, user]);
     res.status(200).send(user);
   } catch (err) {
