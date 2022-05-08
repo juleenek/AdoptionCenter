@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { readStorage } from '../services/service';
 import {authentication} from '../middlewares/authentication';
 import {requiresAdmin} from '../middlewares/requiresAdmin';
+import {requiresCenter} from '../middlewares/requiresCenter';
 
 const express = require('express');
 const router = express.Router();
