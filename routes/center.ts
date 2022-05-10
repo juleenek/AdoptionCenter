@@ -15,7 +15,7 @@ app.use(express.json())
 
 //PATHS
 const CenterPath = 'Data/storeCenters.json';
-
+const DogPath = 'Data/storeDogs.json';
 router.get('', (req: Request, res: Response) => {
     const filters: any = req.query;
     filterCenter(filters, res);
@@ -53,6 +53,7 @@ router.post('', authentication, requiresAdmin, async (req: Request, res: Respons
     }
     else{
     center.id = uniqid();
+    center.dogs = [];
     await updateStorage(CenterPath, [...centers, center]);
     return res.status(201).send(center);
     }
@@ -92,13 +93,17 @@ router.put('/:id', authentication, requiresAdmin, async(req: Request, res: Respo
 //DELETE DELETE A CENTER(ADMIN)
 router.delete('/:id', authentication, requiresAdmin, async(req: Request, res: Response) =>{
     const centers: any = await readStorage(CenterPath);
+    const dogs: any = await readStorage(DogPath);
     const newCenters = centers.filter((n: any) => n.id !== req.params.id);
     const center = centers.find((center: any) => center.id === req.params.id)
     
+    const newDogs = dogs.filter((n: any) => n.idCenter !== req.params.id);
+
     if(center == undefined){
     return res.status(404).send("This center doesn't exist.");
     }
     await updateStorage(CenterPath, [...newCenters]);
+    await updateStorage(DogPath, [...newDogs]);
     return res.status(400).send("Successfully deleted the center.");
 })
 module.exports = router;
