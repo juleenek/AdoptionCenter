@@ -25,12 +25,18 @@ export const  filterCenter = async (filters: any, res: Response) => {
 
 export const  filterDog = async (filters: any, res: Response) => {
     const data = await readStorage(DogPath);
+    const dataCenters = await readStorage(CenterPath);
 
     const filteredDogs = data.filter((dog: any) => {
         let isValid = true;
         for (const key in filters) {
           console.log(key, dog[key], filters[key]);
-          if(isNaN(filters[key]))
+
+          if(filters[key] === '')
+          {
+            isValid;
+          }
+          else if(isNaN(filters[key]))
           {
           isValid = isValid && dog[key].includes(filters[key]);
           }
