@@ -110,9 +110,19 @@ router.delete('/:id',authentication , requiresCenter, async(req: Request, res: R
     const authorizationHeader = req.headers.authorization as string;
     const token = authorizationHeader.split(' ')[1];
     const center: Center = jwt.decode(token) as JwtPayload as Center;
+
     const dogs: any = await readStorage(DogPath);
+    const centers: any = await readStorage(CenterPath);
+
     const newDogs = dogs.filter((n: any) => n.id !== req.params.id);
     const dog = dogs.find((dog: any) => dog.id === req.params.id)
+    
+    const allDogsInsideCenter = centers.reduce((prev: any, next: any) => prev.concat(next.dogs), []);
+    const dogInsideCenter = allDogsInsideCenter.indexOf(allDogsInsideCenter.find((obj: any) => obj.id === dog.id));
+    const newCenters = centers.filter((n: any) => n.id !== center.id);
+    const newCenter = centers.find((n: any) => n.id === center.id);
+
+    newCenter.dogs.splice(dogInsideCenter, 1);
 
     if(dog == undefined){
         return res.status(404).send("This dog doesn't exist.");
@@ -122,6 +132,7 @@ router.delete('/:id',authentication , requiresCenter, async(req: Request, res: R
         return res.status(202).send("You can't delete this dog.")
     }
     await updateStorage(DogPath, [...newDogs]);
+    await updateStorage(CenterPath, [...newCenters, newCenter]);
     return res.status(400).send("Successfully deleted the dog.");
 })
 module.exports = router;
