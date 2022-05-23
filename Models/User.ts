@@ -1,6 +1,6 @@
 import Event from '../models/Event';
 
-class User{
+class User {
   public id: string;
   public login: string;
   public name: string;
@@ -9,12 +9,12 @@ class User{
   public surname: string;
   public password: string;
 
-  constructor(user: User){
+  constructor(user: User) {
     this.id = user.id;
     this.login = user.login;
     this.name = user.name;
     this.role = user.role;
-    this.events = user.events
+    this.events = user.events;
     this.surname = user.surname;
     this.password = user.password;
   }

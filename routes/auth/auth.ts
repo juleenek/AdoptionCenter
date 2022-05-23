@@ -43,7 +43,7 @@ router.post('/register', async (req: Request, res: Response) => {
   // Create a new user
   try {
     user.id = uniqid();
-    if(req.body.role === undefined) user.role = 'user';
+    if (req.body.role === undefined) user.role = 'user';
     await updateStorage<User>(storeUsersFile, [...users, user]);
     res.status(200).send(user);
   } catch (err) {
@@ -83,12 +83,12 @@ router.post('/login', async (req: Request, res: Response) => {
         center.password === req.body.password
     )
   ) {
- 
     const { error } = loginCenterValidation(req.body);
     if (error) return res.status(400).send('Login or password is wrong.');
     const center: Center = centers.find(
       (center) =>
-        center.centerName === req.body.centerName && center.password === req.body.password
+        center.centerName === req.body.centerName &&
+        center.password === req.body.password
     ) as Center;
     const token = jwt.sign(
       { id: center.id, name: center.centerName },

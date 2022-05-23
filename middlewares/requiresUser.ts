@@ -14,8 +14,6 @@ export const requiresUser = (
     const authorizationHeader = req.headers.authorization as string;
     const token = authorizationHeader.split(' ')[1];
     const user: User = jwt.decode(token) as JwtPayload as User;
-    // console.log(user);
-    // console.log(user.role);
     if (user.role === 'user') {
       return next();
     }

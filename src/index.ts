@@ -1,7 +1,7 @@
-import {Request, Response} from 'express'
-const express = require('express')  
-const app = express()
-app.use(express.json())
+import { Request, Response } from 'express';
+const express = require('express');
+const app = express();
+app.use(express.json());
 
 const center = require('../routes/center/center');
 const centers = require('../routes/center/centers');
@@ -19,4 +19,4 @@ app.use('/user', user);
 app.use('/users', users);
 app.use('/auth', auth);
 
-app.listen(3000)
+app.listen(3000);
