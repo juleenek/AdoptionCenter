@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import Center from '../models/Center'
-import Dog from '../models/Dog'
-import Event from '../models/Event'
-import { updateStorage, readStorage } from '../services/service'
-import { registerCenterValidation} from '../helpers/validation';
-import {authentication} from '../middlewares/authentication';
-import {requiresAdmin} from '../middlewares/requiresAdmin';
-import { filterCenter } from '../helpers/filter'
+import Center from '../../models/Center'
+import Dog from '../../models/Dog'
+import Event from '../../models/Event'
+import { updateStorage, readStorage } from '../../services/service'
+import { registerCenterValidation} from '../../helpers/validation';
+import {authentication} from '../../middlewares/authentication';
+import {requiresAdmin} from '../../middlewares/requiresAdmin';
+import { filterCenter } from '../../helpers/filter'
 const express = require('express');
 const uniqid = require('uniqid');
 const router = express.Router();

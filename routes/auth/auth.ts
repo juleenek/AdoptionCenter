@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import Center from '../models/Center';
-import User from '../models/User';
-import { readStorage, updateStorage } from '../services/service';
+import Center from '../../models/Center';
+import User from '../../models/User';
+import { readStorage, updateStorage } from '../../services/service';
 import {
   registerValidation,
   loginUserValidation,
   loginCenterValidation,
-} from '../helpers/validation';
+} from '../../helpers/validation';
 
 // Zrobiłam osobne 'auth', poniewaz nie tylko user będzie się logować, a schronisko równiez
 // Haszujemy hasło czy nie ma po co? (npm bcrypt)

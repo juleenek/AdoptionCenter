@@ -3,12 +3,12 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-const center = require('../routes/center');
-const centers = require('../routes/centers');
-const dog = require('../routes/dog');
-const dogs = require('../routes/dogs');
-const user = require('../routes/user');
-const auth = require('../routes/auth');
+const center = require('../routes/center/center');
+const centers = require('../routes/center/centers');
+const dog = require('../routes/dog/dog');
+const dogs = require('../routes/dog/dogs');
+const user = require('../routes/user/user');
+const auth = require('../routes/auth/auth');
 
 app.use('/center', center);
 app.use('/centers', centers);

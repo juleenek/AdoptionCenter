@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import Dog from '../models/Dog'
-import Center from '../models/Center';
-import { updateStorage, readStorage } from '../services/service'
-import { registerDogValidation } from '../helpers/validation';
-import { authentication } from '../middlewares/authentication';
-import { requiresCenter } from '../middlewares/requiresCenter';
+import Dog from '../../models/Dog'
+import Center from '../../models/Center';
+import { updateStorage, readStorage } from '../../services/service'
+import { registerDogValidation } from '../../helpers/validation';
+import { authentication } from '../../middlewares/authentication';
+import { requiresCenter } from '../../middlewares/requiresCenter';
 import { JwtPayload } from 'jsonwebtoken';
-import { filterDog } from '../helpers/filter';
+import { filterDog } from '../../helpers/filter';
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
