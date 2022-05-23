@@ -1,1 +1,18 @@
-[{"login":"admin123","name":"administrator","role":"admin","surname":"administrator","password":"administrator","id":"sktwigkdl2xadvg0"}]
+[
+  {
+    "login": "admin123",
+    "name": "administrator",
+    "role": "admin",
+    "surname": "administrator",
+    "password": "administrator",
+    "id": "sktwigkdl2xadvg0"
+  },
+  {
+    "login": "juliaaa1",
+    "name": "julia",
+    "surname": "julia1",
+    "password": "asdfghjkl",
+    "id": "sktwinvtl3izdybo",
+    "role": "user"
+  }
+]
