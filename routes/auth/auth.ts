@@ -3,7 +3,7 @@ import Center from '../../models/Center';
 import User from '../../models/User';
 import { readStorage, updateStorage } from '../../services/service';
 import {
-  registerValidation,
+  registerUserValidation,
   loginUserValidation,
   loginCenterValidation,
 } from '../../helpers/validation';
@@ -30,7 +30,7 @@ router.post('/register', async (req: Request, res: Response) => {
   const user: User = req.body;
   const users = await readStorage<User>(storeUsersFile);
 
-  const { error } = registerValidation(user);
+  const { error } = registerUserValidation(user);
   if (error) return res.status(400).send('Valid register.');
 
   // Check if the user exist

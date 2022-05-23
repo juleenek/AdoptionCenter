@@ -6,13 +6,13 @@ const Joi = require('@hapi/joi');
 // Register Validation
 // ToDo: dodać do kazdego error details (czego dotyczy błąd), domyśle wartości nie działają - sprawdzić, zrobić
 
-export const registerValidation = (data: User) => {
+export const registerUserValidation = (data: User) => {
   const schema = Joi.object().keys({
-    login: Joi.string().min(6).required(),
-    name: Joi.string().min(6).required(),
+    login: Joi.string().min(5).required(),
+    name: Joi.string().min(2).required(),
     role: Joi.string().empty('user'),
-    surname: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required(),
+    surname: Joi.string().min(5).required(),
+    password: Joi.string().min(5).required(),
   });
   return schema.validate(data);
 };
@@ -20,8 +20,8 @@ export const registerValidation = (data: User) => {
 // Login User Validation
 export const loginUserValidation = (data: User) => {
   const schema = Joi.object().keys({
-    login: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required(),
+    login: Joi.string().min(5).required(),
+    password: Joi.string().min(5).required(),
   });
   return schema.validate(data);
 };
