@@ -1,15 +1,13 @@
 import { Request, Response } from 'express';
 import Center from '../../models/Center';
 import User from '../../models/User';
+import Event from '../../models/Event';
 import { readStorage, updateStorage } from '../../services/service';
 import {
   registerUserValidation,
   loginUserValidation,
   loginCenterValidation,
 } from '../../helpers/validation';
-
-// Zrobiłam osobne 'auth', poniewaz nie tylko user będzie się logować, a schronisko równiez
-// Haszujemy hasło czy nie ma po co? (npm bcrypt)
 
 const express = require('express');
 const router = express.Router();
@@ -24,7 +22,7 @@ app.use(express.json());
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 const storeCentersFile = '../AdoptionCenter/Data/storeCenters.json';
 
-/////// Only users register
+// Only users register
 
 router.post('/register', async (req: Request, res: Response) => {
   const user: User = req.body;
@@ -43,6 +41,7 @@ router.post('/register', async (req: Request, res: Response) => {
   // Create a new user
   try {
     user.id = uniqid();
+    user.events = [] as Event[];
     if (req.body.role === undefined) user.role = 'user';
     await updateStorage<User>(storeUsersFile, [...users, user]);
     res.status(200).send(user);
@@ -51,7 +50,7 @@ router.post('/register', async (req: Request, res: Response) => {
   }
 });
 
-/////// Users and the centers can log in
+// Users and the centers can log in
 
 router.post('/login', async (req: Request, res: Response) => {
   const users = await readStorage<User>(storeUsersFile);
@@ -74,7 +73,6 @@ router.post('/login', async (req: Request, res: Response) => {
       { id: user.id, role: user.role },
       process.env.TOKEN_SECRET
     );
-    // console.log(user.role);
     res.status(200).send(token);
   } else if (
     centers.some(

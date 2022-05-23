@@ -1,7 +1,8 @@
 import User from '../models/User';
 import Center from '../models/Center';
 import Dog from '../models/Dog';
-const Joi = require('@hapi/joi');
+import Event from '../models/Event';
+const Joi = require('@hapi/joi').extend(require('@joi/date'));
 
 // Register Validation
 // ToDo: dodać do kazdego error details (czego dotyczy błąd), domyśle wartości nie działają - sprawdzić, zrobić
@@ -38,7 +39,7 @@ export const registerCenterValidation = (data: Center) => {
   return schema.validate(data);
 };
 
-// Register Center Validation
+// Register Center Validation <= register dog???
 export const registerDogValidation = (data: Dog) => {
   const schema = Joi.object().keys({
     name: Joi.string().required(),
@@ -57,3 +58,24 @@ export const loginCenterValidation = (data: Center) => {
   });
   return schema.validate(data);
 };
+
+// Event Validation
+export const eventValidation = (data: Event) => {
+  const schema = Joi.object().keys({
+    dogId: Joi.string().required(),
+    date: Joi.date()
+      .required()
+      .greater(Date.now() + 48 * 60 * 60 * 100)
+      .format('DD/MM/YYYY')
+      .error(() => 'Valid data of event.'), // Two days from today
+    message: Joi.string(),
+  });
+  return schema.validate(data);
+};
+
+// public id: string;
+// public dogId: string;
+// public userId: string;
+// public date: Date;
+// public isAccepted: boolean;
+// public message?: string;

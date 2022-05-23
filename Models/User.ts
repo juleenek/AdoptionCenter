@@ -5,7 +5,7 @@ class User {
   public login: string;
   public name: string;
   public role: string = 'user';
-  public events?: Event[];
+  public events: Event[];
   public surname: string;
   public password: string;
 

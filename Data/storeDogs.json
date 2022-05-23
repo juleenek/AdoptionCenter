@@ -1,18 +1,18 @@
 [
-    {
-        "id": "1",
-        "name": "fajneimiepieska",
-        "breed": "york",
-        "age": 3,
-        "gender": "male",
-        "idCenter": "idjakiegośschroniska"
-    },
-    {
-        "id": "2",
-        "name": "test",
-        "breed": "york",
-        "age": 3,
-        "gender": "male",
-        "idCenter": "abcd"
-    }
+  {
+    "id": "1",
+    "name": "fajneimiepieska",
+    "breed": "york",
+    "age": 3,
+    "gender": "male",
+    "idCenter": "skt"
+  },
+  {
+    "id": "2",
+    "name": "test",
+    "breed": "york",
+    "age": 3,
+    "gender": "male",
+    "idCenter": "abcd"
+  }
 ]

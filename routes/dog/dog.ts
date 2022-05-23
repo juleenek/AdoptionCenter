@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Dog from '../../models/Dog';
+import Event from '../../models/Event';
 import Center from '../../models/Center';
 import { updateStorage, readStorage } from '../../services/service';
 import { registerDogValidation } from '../../helpers/validation';

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "dogId": "1",
+    "date": "09/09/2022",
+    "message": "Moje spotkanie",
+    "id": "sktwi1ckml3j924wg",
+    "userId": "sktwi1aoxl3j8kjvp",
+    "isAccepted": false
+  }
+]

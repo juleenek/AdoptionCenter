@@ -52,7 +52,8 @@ router.post(
       return res.status(400).send('This center already exists.');
     } else {
       center.id = uniqid();
-      center.dogs = [];
+      center.dogs = [] as Dog[];
+      center.events = [] as Event[];
       await updateStorage(CenterPath, [...centers, center]);
       return res.status(201).send(center);
     }

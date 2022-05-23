@@ -5,13 +5,17 @@ class Dog {
   public age?: number;
   public gender: string;
   public idCenter: string;
-  public events?: Event[];
+  // public events: Event[];
+
   constructor(dog: Dog) {
     this.name = dog.name;
     this.breed = dog.breed;
+    // this.events = dog.events;
     this.age = dog.age;
     this.gender = dog.gender;
     this.idCenter = dog.idCenter;
   }
 }
 export default Dog;
+
+// Czy psy potrzebują Eventów?

@@ -8,19 +8,21 @@
     "id": "sktwigkdl2xadvg0"
   },
   {
-    "login": "juliaaa1",
-    "name": "julia",
-    "surname": "julia1",
-    "password": "asdfghjkl",
-    "id": "sktwinvtl3izdybo",
-    "role": "user"
-  },
-  {
-    "login": "DANIELEK",
-    "name": "DANIELEK",
-    "surname": "DANIELEK",
-    "password": "DANIELLLLLLL",
-    "id": "sktwinyal3izv4eb",
+    "login": "juliaaa",
+    "name": "julian",
+    "surname": "julekkkk",
+    "password": "julia123",
+    "id": "sktwi1aoxl3j8kjvp",
+    "events": [
+      {
+        "dogId": "1",
+        "date": "09/09/2022",
+        "message": "Moje spotkanie",
+        "id": "sktwi1ckml3j924wg",
+        "userId": "sktwi1aoxl3j8kjvp",
+        "isAccepted": false
+      }
+    ],
     "role": "user"
   }
 ]
