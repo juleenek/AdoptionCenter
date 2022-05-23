@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 import { readStorage, updateStorage } from '../../services/service';
 import { authentication } from '../../middlewares/authentication';
-import { requiresAdmin } from '../../middlewares/requiresAdmin';
 import { requiresUserAdmin } from '../../middlewares/requiresUserAdmin';
 import { registerUserValidation } from '../../helpers/validation';
 import User from '../../models/User';
@@ -17,18 +16,27 @@ app.use(express.json());
 
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 
+// User data can be viewed by admin or the user who wants to view his data
 router.get(
   '/:id',
   authentication,
-  requiresAdmin,
+  requiresUserAdmin,
   async (req: Request, res: Response) => {
-    const users = await readStorage(storeUsersFile);
-    const id = req.params.id;
-    const user = users.find((user) => user.id === id);
-    if (user == undefined) {
-      res.status(404).send("This user doesn't exist.");
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(' ')[1];
+    const decodedUser: User = jwt.decode(token) as JwtPayload as User;
+
+    if (decodedUser.role === 'admin' || decodedUser.id === req.params.id) {
+      const users = await readStorage(storeUsersFile);
+      const id = req.params.id;
+      const user = users.find((user) => user.id === id);
+      if (user == undefined) {
+        res.status(404).send("This user doesn't exist.");
+      } else {
+        res.status(200).send(user);
+      }
     } else {
-      res.status(200).send(user);
+      res.status(400).send("You can't see details of this user.");
     }
   }
 );

@@ -20,13 +20,10 @@ router.get(
   requiresAdmin,
   async (req: Request, res: Response) => {
     const users = await readStorage(storeUsersFile);
-    if(users == undefined)
-    {
-        res.status(404).send("There are no users.");
-    }
-    else
-    {
-        res.status(200).send(users);
+    if (users == undefined) {
+      res.status(404).send('There are no users.');
+    } else {
+      res.status(200).send(users);
     }
   }
 );
