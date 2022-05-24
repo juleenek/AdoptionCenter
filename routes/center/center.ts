@@ -53,6 +53,7 @@ router.post(
     } else {
       center.id = uniqid();
       center.dogs = [] as Dog[];
+      center.role = "center";
       center.events = [] as Event[];
       await updateStorage(CenterPath, [...centers, center]);
       return res.status(201).send(center);

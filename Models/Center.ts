@@ -8,6 +8,7 @@ class Center {
   public city: string;
   public address: string;
   public phone: string;
+  public role: string;
   public dogs?: Dog[];
   public events: Event[];
   public password: string;
@@ -16,6 +17,7 @@ class Center {
     this.id = center.id;
     this.centerName = center.centerName;
     this.city = center.city;
+    this.role = center.role;
     this.events = center.events;
     this.address = center.address;
     this.phone = center.phone;
