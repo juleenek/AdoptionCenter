@@ -5,7 +5,17 @@
     "role": "admin",
     "surname": "administrator",
     "password": "administrator",
-    "id": "sktwigkdl2xadvg0"
+    "id": "sktwigkdl2xadvg0",
+    "events": []
+  },
+  {
+    "login": "juuua",
+    "name": "jddian",
+    "surname": "julefsk",
+    "password": "juedr123",
+    "id": "sktwijgfl3kb3sj5",
+    "events": [],
+    "role": "user"
   },
   {
     "login": "juliaaa",
@@ -21,25 +31,8 @@
         "id": "sktwi1ckml3j924wg",
         "userId": "sktwi1aoxl3j8kjvp",
         "isAccepted": false
-      },
-      {
-        "dogId": "1",
-        "date": "09/09/2022",
-        "message": "Moje spotkanie",
-        "id": "sktwinlml3kchkew",
-        "userId": "sktwi1aoxl3j8kjvp",
-        "isAccepted": false
       }
     ],
-    "role": "user"
-  },
-  {
-    "login": "juuua",
-    "name": "jddian",
-    "surname": "julefsk",
-    "password": "juedr123",
-    "id": "sktwijgfl3kb3sj5",
-    "events": [],
     "role": "user"
   }
 ]

@@ -245,29 +245,29 @@ router.delete(
         newCenter.events.splice(eventInsideCenter, 1);
 
         //////////////////////////////////////////////////////////////////
-
+        console.log(user);
         // WSZYSTKIE EVENTY DLA UZYTKOWNIKA
         const allEventsInsideUser = users.reduce(
           (prev: any, next: any) => prev.concat(next.events),
           []
         );
+        console.log(allEventsInsideUser);
         // INDEX W TABLICY EVENTU KTÓREGO CHCE USUNĄĆ
         const eventInsideUser = allEventsInsideUser.indexOf(
           allEventsInsideUser.find((obj: any) => obj.id === event.id)
         );
-
+        console.log(eventInsideUser);
         // WSZYSCY UZYTKOWNICY OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE EVENT
         const newUsers = users.filter((n: any) => n.id !== user.id);
-
+        console.log(newUsers);
         // NOWY UZYTKOWNIK BEZ EVENTU KTÓREGO CHCIELIŚMY USUNĄĆ
-        const newUser = users.find(
-          (n: any) => n.id === user.id
-        ) as User;
+        const newUser = users.find((n: any) => n.id === user.id) as User;
         newUser.events.splice(eventInsideUser, 1);
+        console.log(newUser);
 
         await updateStorage(storeEventsFile, [...newEvents]);
         await updateStorage(storeCentersFile, [...newCenters, newCenter]);
-        await updateStorage(storeCentersFile, [...newUsers, newUser]);
+        await updateStorage(storeUsersFile, [...newUsers, newUser]);
         res.status(200).send('Event deleted');
       }
     } else {
