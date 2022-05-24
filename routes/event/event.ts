@@ -24,6 +24,8 @@ const storeDogsFile = '../AdoptionCenter/Data/storeDogs.json';
 const storeEventsFile = '../AdoptionCenter/Data/storeEvents.json';
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 
+// ToDo: Sprawdzić zgłaszanie wyjątków (numery statusów)
+
 router.post(
   '',
   authentication,
