@@ -33,10 +33,12 @@ router.post(
     const token = authorizationHeader.split(' ')[1];
     const userDecode: User = jwt.decode(token) as JwtPayload as User;
 
+    // ToDo: Sprawdzić czy pobieranie tablic da się przenieść poza Endpoint
     const centers: Center[] = await readStorage(storeCentersFile);
     const dogs: Dog[] = await readStorage(storeDogsFile);
     const events: Event[] = await readStorage(storeEventsFile);
     const users: User[] = await readStorage(storeUsersFile);
+    // --------------------------------------------------------------------
 
     const event: Event = req.body as Event;
     const { error } = eventValidation(event);
@@ -98,6 +100,7 @@ router.get(
     if (event === undefined)
       return res.status(400).send('There is no event with the given id');
 
+    // ToDo: Sprawdzić czy da się stworzyć funckje odnajdującą Centrum od idDog
     const dog: Dog = dogs.find((dog) => dog.id === event.dogId) as Dog;
     if (dog === undefined)
       return res.status(400).send('There is no dog with the given id');
@@ -107,6 +110,7 @@ router.get(
     ) as Center;
     if (center === undefined)
       return res.status(400).send('Dog has unknown center.');
+    // ------------------------------------------------------------------------
 
     if (
       (decoded.role === 'user' && decoded.id === event.userId) ||
@@ -222,53 +226,54 @@ router.delete(
       if (decoded == undefined) {
         res.status(404).send("This user or center doesn't exist.");
       } else {
-        // WSZYSTKIE EVENTY OPRÓCZ TEGO KTÓREGO CHCĘ USUNĄĆ
+        // --- Usunięcie Eventu z tablic Centrów
+
+        // Wszystkie Eventy oprócz tego, który ma zostać usunięty
         const newEvents = events.filter((n: any) => n.id !== req.params.id);
 
-        // WSZYSTKIE EVENTY W TYM CENTRUM
+        // Wszystkie Eventy w tym Centrum
         const allEventsInsideCenter = centers.reduce(
           (prev: any, next: any) => prev.concat(next.events),
           []
         );
-        // INDEX W TABLICY EVENTU KTÓREGO CHCE USUNĄĆ
+        // Index Eventu, który jest do usunięcia
         const eventInsideCenter = allEventsInsideCenter.indexOf(
           allEventsInsideCenter.find((obj: any) => obj.id === event.id)
         );
 
-        // WSZYSTKIE CENTRA OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE EVENT
+        // Wszystkie Centra oprócz tego, w którym znajduje się Event
         const newCenters = centers.filter((n: any) => n.id !== center.id);
 
-        // NOWE CENTRUM BEZ EVENTU KTÓREGO CHCIELIŚMY USUNĄĆ
+        // Nowe Centrum bez Eventu tego do usunięcia
         const newCenter = centers.find(
           (n: any) => n.id === center.id
         ) as Center;
         newCenter.events.splice(eventInsideCenter, 1);
 
-        //////////////////////////////////////////////////////////////////
-        console.log(user);
-        // WSZYSTKIE EVENTY DLA UZYTKOWNIKA
+        // --- Usunięcie Eventu z tablic Uzytkowników
+
+        // Wszystkie Eventy Uzytkownika
         const allEventsInsideUser = users.reduce(
           (prev: any, next: any) => prev.concat(next.events),
           []
         );
-        console.log(allEventsInsideUser);
-        // INDEX W TABLICY EVENTU KTÓREGO CHCE USUNĄĆ
+
+        // Index Eventu, który jest do usunięcia
         const eventInsideUser = allEventsInsideUser.indexOf(
           allEventsInsideUser.find((obj: any) => obj.id === event.id)
         );
-        console.log(eventInsideUser);
-        // WSZYSCY UZYTKOWNICY OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE EVENT
+
+        //  Wszyscy Uzytkownicy oprócz tego, w którym znajduje się Event
         const newUsers = users.filter((n: any) => n.id !== user.id);
         console.log(newUsers);
-        // NOWY UZYTKOWNIK BEZ EVENTU KTÓREGO CHCIELIŚMY USUNĄĆ
+        // Nowy Uzytkownik bez Eventu tego do usunięcia
         const newUser = users.find((n: any) => n.id === user.id) as User;
         newUser.events.splice(eventInsideUser, 1);
-        console.log(newUser);
 
         await updateStorage(storeEventsFile, [...newEvents]);
         await updateStorage(storeCentersFile, [...newCenters, newCenter]);
         await updateStorage(storeUsersFile, [...newUsers, newUser]);
-        res.status(200).send('Event deleted');
+        res.status(200).send('Event deleted.');
       }
     } else {
       res.status(400).send("You can't delete this event.");
