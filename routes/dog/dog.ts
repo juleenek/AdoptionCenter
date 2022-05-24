@@ -132,19 +132,40 @@ router.delete(
     const dogs: any = await readStorage(DogPath);
     const centers: any = await readStorage(CenterPath);
 
-    const newDogs = dogs.filter((n: any) => n.id !== req.params.id);
-    const dog = dogs.find((dog: any) => dog.id === req.params.id);
+    // WSZYSTKIE PSY OPRÓCZ TEGO KTÓREGO CHCĘ USUNĄĆ
+    const newDogs = dogs.filter((n: any) => n.id !== req.params.id); 
+    console.log('newdogs');
+    console.log(newDogs);
 
+    // PIESEK KTÓREGO CHCE USUNĄĆ
+    const dog = dogs.find((dog: any) => dog.id === req.params.id);
+    console.log('dog');
+    console.log(dog);
+
+    // WSZYSTKIE PIESKI W TYM CENTRUM
     const allDogsInsideCenter = centers.reduce(
       (prev: any, next: any) => prev.concat(next.dogs),
       []
     );
+    console.log('allDogsInsideCenter');
+    console.log(allDogsInsideCenter);
+
+    // INDEX W TABLICY PIESKA KTÓREGO CHCE USUNĄĆ 
     const dogInsideCenter = allDogsInsideCenter.indexOf(
       allDogsInsideCenter.find((obj: any) => obj.id === dog.id)
     );
-    const newCenters = centers.filter((n: any) => n.id !== center.id);
-    const newCenter = centers.find((n: any) => n.id === center.id);
+    console.log('doginsidecenter');
+    console.log(dogInsideCenter);
 
+    // WSZYSTKIE CENTRA OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE PIESEK
+    const newCenters = centers.filter((n: any) => n.id !== center.id);
+    console.log('newcenters');
+    console.log(newCenters);
+
+    // NOWE CENTRUM BEZ PIESKA KTÓREGO CHCIELIŚMY USUNĄĆ
+    const newCenter = centers.find((n: any) => n.id === center.id);
+    console.log('newcenter');
+    console.log(newCenter);
     newCenter.dogs.splice(dogInsideCenter, 1);
 
     if (dog == undefined) {
