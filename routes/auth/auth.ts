@@ -89,7 +89,7 @@ router.post('/login', async (req: Request, res: Response) => {
         center.password === req.body.password
     ) as Center;
     const token = jwt.sign(
-      { id: center.id, name: center.centerName },
+      { id: center.id, name: center.centerName, role: center.role },
       process.env.TOKEN_SECRET
     );
     res.status(200).send(token);

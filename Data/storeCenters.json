@@ -1,18 +1,33 @@
 [
   {
     "centerName": "centrumhauhau",
+    "city": "krakow",
+    "address": "ytdfsuyhuhdgiore",
+    "phone": "342245643",
     "password": "abcsjhd213",
-    "id": "skt",
+    "id": "sktwi7ljl3jzlj9i",
     "dogs": [],
+    "role": "center",
     "events": [
       {
         "dogId": "1",
         "date": "09/09/2022",
         "message": "Moje spotkanie",
-        "id": "sktwi1ckml3j924wg",
+        "id": "sktwi7vcl3jzmwsf",
         "userId": "sktwi1aoxl3j8kjvp",
         "isAccepted": false
       }
     ]
+  },
+  {
+    "centerName": "centrum2",
+    "city": "krakow",
+    "address": "ytdfsuyhuhdgiore",
+    "phone": "342245643",
+    "password": "abcsjh3",
+    "id": "sktwi8fyl3jztvru",
+    "dogs": [],
+    "role": "center",
+    "events": []
   }
 ]

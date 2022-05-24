@@ -83,7 +83,43 @@ router.get(
   authentication,
   requiresUserCenter,
   async (req: Request, res: Response) => {
-   
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(' ')[1];
+    const decoded = jwt.decode(token) as JwtPayload as Center | User;
+
+    const centers: Center[] = await readStorage(storeCentersFile);
+    const dogs: Dog[] = await readStorage(storeDogsFile);
+    const events: Event[] = await readStorage(storeEventsFile);
+    const users: User[] = await readStorage(storeUsersFile);
+
+    const event: Event = events.find(
+      (event) => event.id === req.params.id
+    ) as Event;
+    if (event === undefined)
+      return res.status(400).send('There is no event with the given id');
+
+    const dog: Dog = dogs.find((dog) => dog.id === event.dogId) as Dog;
+    if (dog === undefined)
+      return res.status(400).send('There is no dog with the given id');
+
+    const center: Center = centers.find(
+      (center) => center.id === dog.idCenter
+    ) as Center;
+    if (center === undefined)
+      return res.status(400).send('Dog has unknown center.');
+
+    if (
+      (decoded.role === 'user' && decoded.id === event.userId) ||
+      (decoded.role === 'center' && decoded.id === center.id)
+    ) {
+      if (decoded == undefined) {
+        res.status(404).send("This user or center doesn't exist.");
+      } else {
+        res.status(200).send(event);
+      }
+    } else {
+      res.status(400).send("You can't see details of this event.");
+    }
   }
 );
 
