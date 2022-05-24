@@ -203,6 +203,8 @@ router.delete(
     if (event === undefined)
       return res.status(400).send('There is no event with the given id');
 
+    const user: User = users.find((user) => user.id === event.userId) as User;
+
     const dog: Dog = dogs.find((dog) => dog.id === event.dogId) as Dog;
     if (dog === undefined)
       return res.status(400).send('There is no dog with the given id');
@@ -220,30 +222,52 @@ router.delete(
       if (decoded == undefined) {
         res.status(404).send("This user or center doesn't exist.");
       } else {
-        // events.splice(events.findIndex((e) => e.id === event.id));
+        // WSZYSTKIE EVENTY OPRÓCZ TEGO KTÓREGO CHCĘ USUNĄĆ
+        const newEvents = events.filter((n: any) => n.id !== req.params.id);
 
-        // const user: User | undefined = users.find((user) =>
-        //   user.events.find((e) => e.id === event.id)
-        // );
-        // console.log(user);
-        // console.log(user);
+        // WSZYSTKIE EVENTY W TYM CENTRUM
+        const allEventsInsideCenter = centers.reduce(
+          (prev: any, next: any) => prev.concat(next.events),
+          []
+        );
+        // INDEX W TABLICY EVENTU KTÓREGO CHCE USUNĄĆ
+        const eventInsideCenter = allEventsInsideCenter.indexOf(
+          allEventsInsideCenter.find((obj: any) => obj.id === event.id)
+        );
 
-        // if (decoded.role === 'user') {
-        //   const user: User = users.find(
-        //     (user) => user.id === decoded.id
-        //   ) as User;
-        //   user.events.splice(user.events.findIndex((e) => e.id === event.id));
-        // } else if (decoded.role === 'center') {
-        //   const center: Center = centers.find(
-        //     (c) => c.id === decoded.id
-        //   ) as Center;
-        //   center.events.splice(
-        //     center.events.findIndex((e) => e.id === event.id)
-        //   );
-        // }
-        await updateStorage<Event>(storeEventsFile, events);
-        await updateStorage<Center>(storeCentersFile, centers);
-        await updateStorage<User>(storeUsersFile, users);
+        // WSZYSTKIE CENTRA OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE EVENT
+        const newCenters = centers.filter((n: any) => n.id !== center.id);
+
+        // NOWE CENTRUM BEZ EVENTU KTÓREGO CHCIELIŚMY USUNĄĆ
+        const newCenter = centers.find(
+          (n: any) => n.id === center.id
+        ) as Center;
+        newCenter.events.splice(eventInsideCenter, 1);
+
+        //////////////////////////////////////////////////////////////////
+
+        // WSZYSTKIE EVENTY DLA UZYTKOWNIKA
+        const allEventsInsideUser = users.reduce(
+          (prev: any, next: any) => prev.concat(next.events),
+          []
+        );
+        // INDEX W TABLICY EVENTU KTÓREGO CHCE USUNĄĆ
+        const eventInsideUser = allEventsInsideUser.indexOf(
+          allEventsInsideUser.find((obj: any) => obj.id === event.id)
+        );
+
+        // WSZYSCY UZYTKOWNICY OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE EVENT
+        const newUsers = users.filter((n: any) => n.id !== user.id);
+
+        // NOWY UZYTKOWNIK BEZ EVENTU KTÓREGO CHCIELIŚMY USUNĄĆ
+        const newUser = users.find(
+          (n: any) => n.id === user.id
+        ) as User;
+        newUser.events.splice(eventInsideUser, 1);
+
+        await updateStorage(storeEventsFile, [...newEvents]);
+        await updateStorage(storeCentersFile, [...newCenters, newCenter]);
+        await updateStorage(storeCentersFile, [...newUsers, newUser]);
         res.status(200).send('Event deleted');
       }
     } else {
@@ -251,27 +275,5 @@ router.delete(
     }
   }
 );
-
-// // Center search by dog id
-// const centerSearch = (
-//   dogs: Dog[],
-//   centers: Center[],
-//   event: Event,
-//   res: Response
-// ): Center | Response<any, Record<string, any>> => {
-//   // Adding an event only if the dog's id is in the store file
-//   const dog: Dog = dogs.find((dog) => dog.id === event.dogId) as Dog;
-//   if (dog === undefined)
-//     return res.status(400).send('There is no dog with the given id');
-
-//   // Adding an event only if the center's id is in the store file
-//   const center: Center = centers.find(
-//     (center) => center.id === dog.idCenter
-//   ) as Center;
-//   if (center === undefined)
-//     return res.status(400).send('Dog has unknown center.');
-
-//   return center;
-// };
 
 module.exports = router;

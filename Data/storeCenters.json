@@ -1,50 +1,42 @@
 [
-    {
-        "centerName": "centrum2",
-        "city": "krakow",
-        "address": "ytdfsuyhuhdgiore",
-        "phone": "342245643",
-        "password": "abcsjh3",
-        "id": "sktwi8fyl3jztvru",
-        "dogs": [],
-        "role": "center",
-        "events": []
-    },
-    {
-        "centerName": "centrumhauhau",
-        "city": "krakow",
-        "address": "ytdfsuyhuhdgiore",
-        "phone": "342245643",
-        "password": "abcsjhd213",
-        "id": "sktwi7ljl3jzlj9i",
-        "dogs": [
-            {
-                "name": "uwuPieseksadsadas",
-                "breed": "york",
-                "age": 5,
-                "gender": "male",
-                "id": "py7tkl3kfmulz",
-                "idCenter": "sktwi7ljl3jzlj9i"
-            }
-        ],
-        "role": "center",
-        "events": [
-            {
-                "dogId": "61",
-                "date": "09/09/2022",
-                "message": "-jq",
-                "id": "sktwi1ckml3j924wg",
-                "userId": "sktwi1aoxl3j8kjvp",
-                "isAccepted": false
-            },
-            {
-                "dogId": "1",
-                "date": "09/09/2022",
-                "message": "Moje spotkanie",
-                "id": "sktwinlml3kchkew",
-                "userId": "sktwi1aoxl3j8kjvp",
-                "isAccepted": false
-            }
-        ]
-    }
+  {
+    "centerName": "centrum2",
+    "city": "krakow",
+    "address": "ytdfsuyhuhdgiore",
+    "phone": "342245643",
+    "password": "abcsjh3",
+    "id": "sktwi8fyl3jztvru",
+    "dogs": [],
+    "role": "center",
+    "events": []
+  },
+  {
+    "centerName": "centrumhauhau",
+    "city": "krakow",
+    "address": "ytdfsuyhuhdgiore",
+    "phone": "342245643",
+    "password": "abcsjhd213",
+    "id": "sktwi7ljl3jzlj9i",
+    "dogs": [
+      {
+        "name": "uwuPieseksadsadas",
+        "breed": "york",
+        "age": 5,
+        "gender": "male",
+        "id": "py7tkl3kfmulz",
+        "idCenter": "sktwi7ljl3jzlj9i"
+      }
+    ],
+    "role": "center",
+    "events": [
+      {
+        "dogId": "61",
+        "date": "09/09/2022",
+        "message": "-jq",
+        "id": "sktwi1ckml3j924wg",
+        "userId": "sktwi1aoxl3j8kjvp",
+        "isAccepted": false
+      }
+    ]
+  }
 ]
