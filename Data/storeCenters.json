@@ -8,8 +8,7 @@
     "id": "sktwi8fyl3jztvru",
     "dogs": [],
     "role": "center",
-    "events": [
-    ]
+    "events": []
   },
   {
     "centerName": "centrumhauhau",
@@ -36,7 +35,7 @@
         "message": "-jq",
         "id": "sktwi1ckml3j924wg",
         "userId": "sktwi1aoxl3j8kjvp",
-        "isAccepted": true
+        "isAccepted": false
       }
     ]
   }
