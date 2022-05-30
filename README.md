@@ -16,7 +16,7 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
   
 - __Użytkownik__ - CRUD danych dla użytkownika aplikacji 
 
-  - (GET, DELETE - użytkowników oraz konkretnego użtkownika o podanym ID może wyświetlić administrator aplikacji, zalogowany użytkownik może wyświetlić dane tylko o swoim profilu, usunięcie konta jest możliwe zarówno dla administratora jak i dla użytkownika aplikacji)
+  - (GET, DELETE - użytkowników oraz konkretnego użtkownika o podanym Id może wyświetlić administrator aplikacji, zalogowany użytkownik może wyświetlić dane tylko o swoim profilu, usunięcie konta jest możliwe zarówno dla administratora jak i dla użytkownika aplikacji)
  
 - __Pies__ - CRUD danych dla psa znajdującego się w ośrodku adopcyjnym 
 
@@ -24,7 +24,7 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
 
 - __Spotkanie adopcyjne__ - CRUD danych dla spotkania adopcyjnego 
 
-  - (POST oraz DELETE - umówienie spotkania jest możliwe tylko dla użytkownika, usunięcie spotkania odbywa się przez zalogowanego użytkownika bądź     schroniska, GET - spotkanie o konkretnym ID oraz wszystkie spotkania adopcyjne może wyświetlić schronisko, jeśli dotyczą tego zalogowanego konkretnego centrum, spotkanie o konkretnym ID może wyświetlić użytkownik, jeśli spotkanie to zostało umówione przez niego)
+  - (POST oraz DELETE - umówienie spotkania jest możliwe tylko dla użytkownika, usunięcie spotkania odbywa się przez zalogowanego użytkownika bądź     schroniska, GET - spotkanie o konkretnym Id oraz wszystkie spotkania adopcyjne może wyświetlić schronisko, jeśli dotyczą tego zalogowanego konkretnego centrum, spotkanie o konkretnym Id może wyświetlić użytkownik, jeśli spotkanie to zostało umówione przez niego)
   
 ### Funkcjonalności związane z autentykacją 
 
@@ -33,15 +33,46 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
 
 ## Modele danych
 
-### Center (ośrodek adopcyjny)
+### Center 
 
 ```
-* centerName 
-* city 
-* address
-* phone
-* role
-* dogs (lista psów znajdujących się w ośrodku)
-* events (lista spotkań adopcyjnych dotyczących ośrodka)
-* passpord
+> centerName 
+> city 
+> address
+> phone
+> role
+> dogs (lista psów znajdujących się w ośrodku)
+> events (lista spotkań adopcyjnych dotyczących ośrodka)
+> passpord
+```
+
+### Dog
+
+```
+> name
+> breed
+> age
+> gender
+> idCenter (Id centrów którym obecnie znajduje się pies)
+```
+
+### Event
+
+```
+> dogId (Id psa, którego dotyczy spotkanie adopcyjne)
+> userId (Id użytkownika, który umówił to spotkanie)
+> date
+> isAccepted (domyślnie false, tylko centrum może je zaakceptować)
+> message (opcjonalna wiadomość do ośrodka)
+```
+
+### User
+
+```
+> login
+> name
+> role (admin lub user)
+> events (lista umówionych spotkań)
+> surname
+> passport
 ```
