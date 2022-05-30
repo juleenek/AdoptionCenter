@@ -45,7 +45,7 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
 > events (lista spotkań adopcyjnych dotyczących ośrodka)
 > passpord
 ```
-
+- - - -
 ### Dog
 
 ```
@@ -55,7 +55,7 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
 > gender
 > idCenter (Id centrów którym obecnie znajduje się pies)
 ```
-
+- - - -
 ### Event
 
 ```
@@ -65,7 +65,7 @@ Użytkownik ma możliwość zajerestrowania się oraz zalogowania w aplikacji.
 > isAccepted (domyślnie false, tylko centrum może je zaakceptować)
 > message (opcjonalna wiadomość do ośrodka)
 ```
-
+- - - -
 ### User
 
 ```
