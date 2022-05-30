@@ -25,12 +25,12 @@
     "id": "sktwi1aoxl3j8kjvp",
     "events": [
       {
-        "dogId": "61",
+        "dogId": "1",
         "date": "09/09/2022",
         "message": "-jq",
         "id": "sktwi1ckml3j924wg",
         "userId": "sktwi1aoxl3j8kjvp",
-        "isAccepted": false
+        "isAccepted": true
       }
     ],
     "role": "user"

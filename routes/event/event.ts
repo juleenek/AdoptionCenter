@@ -3,8 +3,10 @@ import { JwtPayload } from 'jsonwebtoken';
 import { readStorage, updateStorage } from '../../services/service';
 import { authentication } from '../../middlewares/authentication';
 import { requiresUser } from '../../middlewares/requiresUser';
+import { requiresCenter } from '../../middlewares/requiresCenter';
 import { requiresUserCenter } from '../../middlewares/requiresUserCenter';
 import { eventValidation } from '../../helpers/validation';
+
 import User from '../../models/User';
 import Dog from '../../models/Dog';
 import Event from '../../models/Event';
@@ -279,6 +281,62 @@ router.delete(
       }
     } else {
       res.status(400).send("You can't delete this event.");
+    }
+  }
+);
+
+router.put(
+  '/accept/:id',
+  authentication,
+  requiresCenter,
+  async (req: Request, res: Response) => {
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(' ')[1];
+    const decoded = jwt.decode(token) as JwtPayload as Center;
+
+    const centers: Center[] = await readStorage(storeCentersFile);
+    const users: User[] = await readStorage(storeUsersFile);
+    const dogs: Dog[] = await readStorage(storeDogsFile);
+    const events: Event[] = await readStorage(storeEventsFile);
+
+    let event: Event = events.find(
+      (event) => event.id === req.params.id
+    ) as Event;
+
+    if (event === undefined)
+      return res.status(400).send('There is no event with the given id');
+
+    const user: User = users.find((user) => user.id === event.userId) as User;
+
+    const dog: Dog = dogs.find((dog) => dog.id === event.dogId) as Dog;
+    if (dog === undefined)
+      return res.status(400).send('There is no dog with the given id');
+
+    const center: Center = centers.find(
+      (center) => center.id === dog.idCenter
+    ) as Center;
+    if (center === undefined)
+      return res.status(400).send('Dog has unknown center.');
+
+    if (decoded == undefined) {
+      res.status(404).send("This user or center doesn't exist.");
+    } else {
+      const eventAccepted = event;
+      eventAccepted.isAccepted = true;
+      
+      event = Object.assign(event, eventAccepted);
+
+      let userEvent = user.events.find((e) => e.id === event.id) as Event;
+      userEvent = Object.assign(userEvent, eventAccepted);
+
+      let centerEvent = center.events.find((e) => e.id === event.id) as Event;
+      centerEvent = Object.assign(centerEvent, eventAccepted);
+
+      await updateStorage<Event>(storeEventsFile, events);
+      await updateStorage<Center>(storeCentersFile, centers);
+      await updateStorage<User>(storeUsersFile, users);
+      res.status(201).send(eventAccepted);
+
     }
   }
 );
