@@ -4,9 +4,6 @@ import Dog from '../models/Dog';
 import Event from '../models/Event';
 const Joi = require('@hapi/joi').extend(require('@joi/date'));
 
-// Register Validation
-// ToDo: dodać do kazdego error details (czego dotyczy błąd), domyśle wartości nie działają - sprawdzić, zrobić
-
 export const registerUserValidation = (data: User) => {
   const schema = Joi.object().keys({
     login: Joi.string().min(5).required(),
@@ -66,16 +63,8 @@ export const eventValidation = (data: Event) => {
     date: Joi.date()
       .required()
       .greater(Date.now() + 48 * 60 * 60 * 100)
-      .format('DD/MM/YYYY')
-      .error(() => 'Valid data of event.'), // Two days from today
+      .format('DD/MM/YYYY'), 
     message: Joi.string(),
   });
   return schema.validate(data);
 };
-
-// public id: string;
-// public dogId: string;
-// public userId: string;
-// public date: Date;
-// public isAccepted: boolean;
-// public message?: string;

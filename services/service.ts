@@ -6,11 +6,6 @@ import Dog from '../models/Dog';
 import User from '../models/User';
 import Event from '../models/Event';
 
-// const storeCentersFile = '../AdoptionCenter/Data/storeCenters.json';
-// const storeDogsFile = '../AdoptionCenter/Data/storeDogs.json';
-// const storeEventsFile = '../AdoptionCenter/Data/storeEvents.json';
-// const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
-
 export const secret = 'LubiePieski123';
 
 export async function updateStorage<

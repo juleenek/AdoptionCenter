@@ -44,7 +44,7 @@ router.post('/register', async (req: Request, res: Response) => {
     user.events = [] as Event[];
     if (req.body.role === undefined) user.role = 'user';
     await updateStorage<User>(storeUsersFile, [...users, user]);
-    res.status(200).send(user);
+    res.status(201).send(user);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -92,7 +92,7 @@ router.post('/login', async (req: Request, res: Response) => {
       { id: center.id, name: center.centerName, role: center.role },
       process.env.TOKEN_SECRET
     );
-    res.status(200).send(token);
+    res.status(202).send(token);
   } else {
     return res.status(400).send({
       error: 'Login or password is wrong.',
