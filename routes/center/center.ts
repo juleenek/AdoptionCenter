@@ -39,12 +39,14 @@ router.post(
   authentication,
   requiresAdmin,
   async (req: Request, res: Response) => {
-    const centers: any = await readStorage(CenterPath);
+    const centers: Center[] = await readStorage(CenterPath);
     const center: Center = req.body;
 
     const name = (center.centerName = center.centerName.toLowerCase());
-    const findSameName = centers.find((x: any) => x.centerName == name);
-
+    const findSameName = centers.find(x => x.centerName == name);
+    if(centers.find((x => x.password == center.password))){
+      return res.status(400).send('Password is already taken.');
+    }
     const { error } = registerCenterValidation(center);
     if (error) return res.status(400).send('Invalid data, try again.');
 

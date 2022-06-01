@@ -1,18 +1,18 @@
 [
-    {
-        "id": "1",
-        "name": "fajneimiepieska",
-        "breed": "york",
-        "age": 3,
-        "gender": "male",
-        "idCenter": "sktwi7ljl3jzlj9i"
-    },
-    {
-        "name": "uwuPieseksadsadas",
-        "breed": "york",
-        "age": 5,
-        "gender": "male",
-        "id": "py7tkl3kfmulz",
-        "idCenter": "sktwi7ljl3jzlj9i"
-    }
+  {
+    "name": "Azorek",
+    "breed": "Owczarek niemiecki",
+    "age": 5,
+    "gender": "male",
+    "id": "sktwi666l3vd4lap",
+    "idCenter": "sktwi4qsl3vcivd2"
+  },
+  {
+    "name": "Puszek",
+    "breed": "Yorksher Terrier",
+    "age": 2,
+    "gender": "female",
+    "id": "sktwi6cil3vd79cz",
+    "idCenter": "sktwi4qsl3vcivd2"
+  }
 ]

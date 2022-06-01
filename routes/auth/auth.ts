@@ -38,6 +38,12 @@ router.post('/register', async (req: Request, res: Response) => {
     });
   }
 
+  if (users.some((user) => user.password === req.body.password)) {
+    return res.status(400).send({
+      error: 'Password is already taken.',
+    });
+  }
+
   // Create a new user
   try {
     user.id = uniqid();

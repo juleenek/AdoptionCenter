@@ -1,1 +1,63 @@
-[{"centerName":"centrum2","city":"krakow","address":"ytdfsuyhuhdgiore","phone":"342245643","password":"abcsjh3","id":"sktwi8fyl3jztvru","dogs":[],"role":"center","events":[]},{"centerName":"centrumhauhau","city":"krakow","address":"ytdfsuyhuhdgiore","phone":"342245643","password":"abcsjhd213","id":"sktwi7ljl3jzlj9i","dogs":[{"name":"uwuPieseksadsadas","breed":"york","age":5,"gender":"male","id":"py7tkl3kfmulz","idCenter":"sktwi7ljl3jzlj9i"}],"role":"center","events":[{"dogId":"1","date":"09/09/2022","message":"-jq","id":"sktwi1ckml3j924wg","userId":"sktwi1aoxl3j8kjvp","isAccepted":true},{"dogId":"1","date":"10/07/2022","message":"Moje spotkanie","id":"sktwidc9l3u61wvc","userId":"sktwi1aoxl3j8kjvp","isAccepted":false},{"dogId":"1","date":"01/06/2022","message":"Moje spotkanie","id":"sktwiddsl3u62gxl","userId":"sktwi1aoxl3j8kjvp","isAccepted":false}]}]
+[
+  {
+    "centerName": "psiakowa dolina",
+    "city": "Kraków",
+    "address": "Mogilska 13",
+    "phone": "637892012",
+    "password": "dolinowo1",
+    "id": "sktwi4okl3vci0qh",
+    "dogs": [],
+    "role": "center",
+    "events": []
+  },
+  {
+    "centerName": "cztery łapy",
+    "city": "Warszawa",
+    "address": "Mickiewicza 82",
+    "phone": "283024234",
+    "password": "kochampieski123",
+    "id": "sktwi4sol3vck49n",
+    "dogs": [],
+    "role": "center",
+    "events": []
+  },
+  {
+    "centerName": "super psiaki",
+    "city": "Warszawa",
+    "address": "Wesoła 22",
+    "phone": "892371321",
+    "password": "wesolypies1",
+    "id": "sktwi5lul3vcu5gz",
+    "dogs": [],
+    "role": "center",
+    "events": []
+  },
+  {
+    "centerName": "adopsiaki",
+    "city": "Kraków",
+    "address": "Ułanów 28A",
+    "phone": "927392012",
+    "password": "kochampieski123",
+    "id": "sktwi4qsl3vcivd2",
+    "dogs": [
+      {
+        "name": "Azorek",
+        "breed": "Owczarek niemiecki",
+        "age": 5,
+        "gender": "male",
+        "id": "sktwi666l3vd4lap",
+        "idCenter": "sktwi4qsl3vcivd2"
+      },
+      {
+        "name": "Puszek",
+        "breed": "Yorksher Terrier",
+        "age": 2,
+        "gender": "female",
+        "id": "sktwi6cil3vd79cz",
+        "idCenter": "sktwi4qsl3vcivd2"
+      }
+    ],
+    "role": "center",
+    "events": []
+  }
+]
