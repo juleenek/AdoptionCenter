@@ -13,7 +13,6 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 
-//PATHS
 const CenterPath = 'Data/storeCenters.json';
 const DogPath = 'Data/storeDogs.json';
 router.get('', (req: Request, res: Response) => {
@@ -21,7 +20,7 @@ router.get('', (req: Request, res: Response) => {
   filterCenter(filters, res);
 });
 
-//GET SHOW CENTER BY ID
+// Show Center by Id
 router.get('/:id', async (req: Request, res: Response) => {
   const centers = await readStorage(CenterPath);
   const id = req.params.id;
@@ -33,7 +32,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-//POST ADD NEW CENTER(ADMIN)
+// Add new Center (Admin only)
 router.post(
   '',
   authentication,
@@ -63,7 +62,7 @@ router.post(
   }
 );
 
-//PUT UPDATE CENTER DATA(ADMIN)
+// Update Center details (Admin only)
 router.put(
   '/:id',
   authentication,
@@ -103,7 +102,7 @@ router.put(
   }
 );
 
-//DELETE DELETE A CENTER(ADMIN)
+// Delete Center (Admin only)
 router.delete(
   '/:id',
   authentication,

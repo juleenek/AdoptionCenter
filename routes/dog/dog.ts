@@ -16,17 +16,16 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 
-//PATHS
 const DogPath = 'Data/storeDogs.json';
 const CenterPath = 'Data/storeCenters.json';
 
-//GET SHOW DOGS BY FILTERS
+// Show Dogs by Filters
 router.get('', (req: Request, res: Response) => {
   const filters: any = req.query;
   filterDog(filters, res);
 });
 
-//GET SHOW DOG BY ID
+// Show Dog by Id 
 router.get('/:id', async (req: Request, res: Response) => {
   const dogs = await readStorage(DogPath);
   const id = req.params.id;
@@ -38,7 +37,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-//POST ADD DOG(CENTER)
+// Add Dog (Center only)
 router.post(
   '',
   authentication,
@@ -72,7 +71,7 @@ router.post(
   }
 );
 
-//PUT UPDATE DOG(CENTER)
+// Update Dog details (Center only)
 router.put(
   '/:id',
   authentication,
@@ -119,7 +118,7 @@ router.put(
   }
 );
 
-//DELETE DELETE A DOG(CENTER)
+// Delete Dog (Center only)
 router.delete(
   '/:id',
   authentication,
@@ -132,17 +131,17 @@ router.delete(
     const dogs: any = await readStorage(DogPath);
     const centers: any = await readStorage(CenterPath);
 
-    // WSZYSTKIE PSY OPRÓCZ TEGO KTÓREGO CHCĘ USUNĄĆ
+    // Wszystkie psy oprócz tego do usunięcia
     const newDogs = dogs.filter((n: any) => n.id !== req.params.id); 
     console.log('newdogs');
     console.log(newDogs);
 
-    // PIESEK KTÓREGO CHCE USUNĄĆ
+    // Pies do usunięcia z pliku
     const dog = dogs.find((dog: any) => dog.id === req.params.id);
     console.log('dog');
     console.log(dog);
 
-    // WSZYSTKIE PIESKI W TYM CENTRUM
+    // Wszystkie psy z Centrum
     const allDogsInsideCenter = centers.reduce(
       (prev: any, next: any) => prev.concat(next.dogs),
       []
@@ -150,19 +149,19 @@ router.delete(
     console.log('allDogsInsideCenter');
     console.log(allDogsInsideCenter);
 
-    // INDEX W TABLICY PIESKA KTÓREGO CHCE USUNĄĆ 
+    // Index w tablicy psa który zostanie usunięty
     const dogInsideCenter = allDogsInsideCenter.indexOf(
       allDogsInsideCenter.find((obj: any) => obj.id === dog.id)
     );
     console.log('doginsidecenter');
     console.log(dogInsideCenter);
 
-    // WSZYSTKIE CENTRA OPRÓCZ TEGO W KTÓRYM ZNAJDUJE SIE PIESEK
+    // Wszystkie Centra oprócz tego, w którym znajduję się pies
     const newCenters = centers.filter((n: any) => n.id !== center.id);
     console.log('newcenters');
     console.log(newCenters);
 
-    // NOWE CENTRUM BEZ PIESKA KTÓREGO CHCIELIŚMY USUNĄĆ
+    // Nowe Centrum bez psa który zostanie usunięty
     const newCenter = centers.find((n: any) => n.id === center.id);
     console.log('newcenter');
     console.log(newCenter);

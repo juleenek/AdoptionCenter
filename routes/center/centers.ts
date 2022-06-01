@@ -6,10 +6,9 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 
-//PATHS
 const CenterPath = 'Data/storeCenters.json';
 
-//GET SHOW CENTER LIST
+// Show Centers 
 router.get('', async (req: Request, res: Response) => {
   const centers = await readStorage(CenterPath);
   if (centers == undefined) {

@@ -6,10 +6,9 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 
-//PATHS
 const DogPath = 'Data/storeDogs.json';
 
-//GET SHOW CENTER LIST
+// Show Centers 
 router.get('', async (req: Request, res: Response) => {
   const dogs = await readStorage(DogPath);
   if (dogs == undefined) {

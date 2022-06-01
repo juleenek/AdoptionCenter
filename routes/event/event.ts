@@ -27,6 +27,7 @@ const storeDogsFile = '../AdoptionCenter/Data/storeDogs.json';
 const storeEventsFile = '../AdoptionCenter/Data/storeEvents.json';
 const storeUsersFile = '../AdoptionCenter/Data/storeUsers.json';
 
+// Add event (only Users can)
 router.post(
   '',
   authentication,
@@ -41,9 +42,9 @@ router.post(
     const events: Event[] = await readStorage(storeEventsFile);
     const users: User[] = await readStorage(storeUsersFile);
 
+    // Validation
     const event: Event = req.body as Event;
     const { error } = eventValidation(event);
-
     if (error) return res.status(400).send('Valid event data.');
 
     try {
@@ -52,10 +53,12 @@ router.post(
       ) as User;
       if (user === undefined) return res.status(400).send('Invalid token.');
 
+      // Parameters of Event
       event.id = uniqid();
       event.userId = user.id;
       event.isAccepted = false;
 
+      // Trycatch because of function findCenterByDog();
       try {
         const center: Center = findCenterByDog(dogs, centers, event, res);
 
@@ -76,6 +79,7 @@ router.post(
   }
 );
 
+// Get Event details by Id
 router.get(
   '/:id',
   authentication,
@@ -98,6 +102,7 @@ router.get(
     try {
       const center: Center = findCenterByDog(dogs, centers, event, res);
 
+      // Only Center and User that has this Event
       if (
         (decoded.role === 'user' && decoded.id === event.userId) ||
         (decoded.role === 'center' && decoded.id === center.id)
@@ -115,6 +120,7 @@ router.get(
     }
   }
 );
+
 
 router.put(
   '/:id',

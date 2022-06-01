@@ -8,6 +8,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
+// Using in routes/center.ts
 export const filterCenter = async (filters: any, res: Response) => {
   const data = await readStorage(CenterPath);
 
@@ -22,6 +23,7 @@ export const filterCenter = async (filters: any, res: Response) => {
   res.send(filteredCenters);
 };
 
+// Using in routes/dog.ts
 export const filterDog = async (filters: any, res: Response) => {
   const data = await readStorage(DogPath);
   const dataCenters = await readStorage(CenterPath);
