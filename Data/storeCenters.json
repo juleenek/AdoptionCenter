@@ -11,17 +11,6 @@
     "events": []
   },
   {
-    "centerName": "cztery łapy",
-    "city": "Warszawa",
-    "address": "Mickiewicza 82",
-    "phone": "283024234",
-    "password": "kochampieski123",
-    "id": "sktwi4sol3vck49n",
-    "dogs": [],
-    "role": "center",
-    "events": []
-  },
-  {
     "centerName": "super psiaki",
     "city": "Warszawa",
     "address": "Wesoła 22",
@@ -58,6 +47,44 @@
       }
     ],
     "role": "center",
-    "events": []
+    "events": [
+      {
+        "dogId": "sktwi666l3vd4lap",
+        "date": "01/09/2022",
+        "message": "Przyjdę rano około 10:00-11:00",
+        "id": "sktwi8fhl3ve13hz",
+        "userId": "sktwi5mol3vcvf8k",
+        "isAccepted": false
+      }
+    ]
+  },
+  {
+    "centerName": "cztery łapy",
+    "city": "Warszawa",
+    "address": "Mickiewicza 82",
+    "phone": "283024234",
+    "password": "zwierzatka123",
+    "id": "sktwi4sol3vck49n",
+    "dogs": [
+      {
+        "name": "Mela",
+        "breed": "Kundelek",
+        "age": 2,
+        "gender": "female",
+        "id": "sktwi7ayl3vdoeya",
+        "idCenter": "sktwi4sol3vck49n"
+      }
+    ],
+    "role": "center",
+    "events": [
+      {
+        "dogId": "sktwi7ayl3vdoeya",
+        "date": "11/07/2022",
+        "message": "Będę o 15:00",
+        "id": "sktwi8pcl3ve5ud7",
+        "userId": "sktwi5mol3vcvf8k",
+        "isAccepted": true
+      }
+    ]
   }
 ]

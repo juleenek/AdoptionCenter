@@ -56,16 +56,20 @@ router.post(
       event.userId = user.id;
       event.isAccepted = false;
 
-      const center: Center = findCenterByDog(dogs, centers, event, res);
+      try {
+        const center: Center = findCenterByDog(dogs, centers, event, res);
 
-      center.events.push(event);
-      user.events.push(event);
-      events.push(event);
+        center.events.push(event);
+        user.events.push(event);
+        events.push(event);
 
-      await updateStorage<Event>(storeEventsFile, events);
-      await updateStorage<Center>(storeCentersFile, centers);
-      await updateStorage<User>(storeUsersFile, users);
-      res.status(201).send(event);
+        await updateStorage<Event>(storeEventsFile, events);
+        await updateStorage<Center>(storeCentersFile, centers);
+        await updateStorage<User>(storeUsersFile, users);
+        res.status(201).send(event);
+      } catch (error) {
+        return;
+      }
     } catch (err) {
       res.status(400).send(err);
     }
@@ -90,19 +94,24 @@ router.get(
     ) as Event;
     if (event === undefined)
       return res.status(400).send('There is no event with the given id');
-    const center: Center = findCenterByDog(dogs, centers, event, res);
 
-    if (
-      (decoded.role === 'user' && decoded.id === event.userId) ||
-      (decoded.role === 'center' && decoded.id === center.id)
-    ) {
-      if (decoded == undefined) {
-        res.status(404).send("This user or center doesn't exist.");
+    try {
+      const center: Center = findCenterByDog(dogs, centers, event, res);
+
+      if (
+        (decoded.role === 'user' && decoded.id === event.userId) ||
+        (decoded.role === 'center' && decoded.id === center.id)
+      ) {
+        if (decoded == undefined) {
+          res.status(404).send("This user or center doesn't exist.");
+        } else {
+          res.status(200).send(event);
+        }
       } else {
-        res.status(200).send(event);
+        res.status(400).send("You can't see details of this event.");
       }
-    } else {
-      res.status(400).send("You can't see details of this event.");
+    } catch (error) {
+      return;
     }
   }
 );
@@ -128,7 +137,8 @@ router.put(
 
     const user: User = users.find((user) => user.id === decodedUser.id) as User;
     if (user === undefined) return res.status(400).send('Invalid token.');
-    const center: Center = findCenterByDog(dogs, centers, newEvent, res);
+    try {
+      const center: Center = findCenterByDog(dogs, centers, newEvent, res);
 
     // If data has not been changed
     if (_.isEqual(oldEvent, newEvent))
@@ -151,6 +161,9 @@ router.put(
       res.status(201).send(newEvent);
     } else {
       return res.status(400).send("You can't change event that isn't yours.");
+    }
+    } catch (error) {
+      return;
     }
   }
 );
@@ -176,6 +189,7 @@ router.delete(
       return res.status(400).send('There is no event with the given id');
 
     const user: User = users.find((user) => user.id === event.userId) as User;
+   try {
     const center: Center = findCenterByDog(dogs, centers, event, res);
 
     if (
@@ -237,6 +251,9 @@ router.delete(
     } else {
       res.status(400).send("You can't delete this event.");
     }
+   } catch (error) {
+     return;
+   }
   }
 );
 
@@ -262,7 +279,8 @@ router.put(
       return res.status(400).send('There is no event with the given id');
 
     const user: User = users.find((user) => user.id === event.userId) as User;
-    const center: Center = findCenterByDog(dogs, centers, event, res);
+    try {
+      const center: Center = findCenterByDog(dogs, centers, event, res);
 
     if (decoded == undefined) {
       res.status(404).send("This user or center doesn't exist.");
@@ -282,6 +300,9 @@ router.put(
       await updateStorage<Center>(storeCentersFile, centers);
       await updateStorage<User>(storeUsersFile, users);
       res.status(201).send(eventAccepted);
+    }
+    } catch (error) {
+     return; 
     }
   }
 );
@@ -308,26 +329,31 @@ router.put(
       return res.status(400).send('There is no event with the given id');
 
     const user: User = users.find((user) => user.id === event.userId) as User;
-    const center: Center = findCenterByDog(dogs, centers, event, res);
 
-    if (decoded == undefined) {
-      res.status(404).send("This user or center doesn't exist.");
-    } else {
-      const eventAccepted = event;
-      eventAccepted.isAccepted = false;
+    try {
+      const center: Center = findCenterByDog(dogs, centers, event, res);
 
-      event = Object.assign(event, eventAccepted);
-
-      let userEvent = user.events.find((e) => e.id === event.id) as Event;
-      userEvent = Object.assign(userEvent, eventAccepted);
-
-      let centerEvent = center.events.find((e) => e.id === event.id) as Event;
-      centerEvent = Object.assign(centerEvent, eventAccepted);
-
-      await updateStorage<Event>(storeEventsFile, events);
-      await updateStorage<Center>(storeCentersFile, centers);
-      await updateStorage<User>(storeUsersFile, users);
-      res.status(201).send(eventAccepted);
+      if (decoded == undefined) {
+        res.status(404).send("This user or center doesn't exist.");
+      } else {
+        const eventAccepted = event;
+        eventAccepted.isAccepted = false;
+  
+        event = Object.assign(event, eventAccepted);
+  
+        let userEvent = user.events.find((e) => e.id === event.id) as Event;
+        userEvent = Object.assign(userEvent, eventAccepted);
+  
+        let centerEvent = center.events.find((e) => e.id === event.id) as Event;
+        centerEvent = Object.assign(centerEvent, eventAccepted);
+  
+        await updateStorage<Event>(storeEventsFile, events);
+        await updateStorage<Center>(storeCentersFile, centers);
+        await updateStorage<User>(storeUsersFile, users);
+        res.status(201).send(eventAccepted);
+      }
+    } catch (error) {
+      return;
     }
   }
 );

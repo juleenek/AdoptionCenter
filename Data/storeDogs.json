@@ -14,5 +14,21 @@
     "gender": "female",
     "id": "sktwi6cil3vd79cz",
     "idCenter": "sktwi4qsl3vcivd2"
+  },
+  {
+    "name": "Puszek",
+    "breed": "Yorksher Terrier",
+    "age": 2,
+    "gender": "female",
+    "id": "sktwi743l3vdl42n",
+    "idCenter": "sktwi4sol3vck49n"
+  },
+  {
+    "name": "Mela",
+    "breed": "Kundelek",
+    "age": 2,
+    "gender": "female",
+    "id": "sktwi7ayl3vdoeya",
+    "idCenter": "sktwi4sol3vck49n"
   }
 ]
